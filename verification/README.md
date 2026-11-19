@@ -52,7 +52,7 @@ to build `.venv-fv`.
 | --- | --- | --- |
 | PASS | 0 | re-run matches the committed report; every test passed |
 | FAIL | 1 | a verdict, count, or recorded environment differs, or a test failed |
-| NOT_RUN / BLOCKED | 2 | `klt`, `cocotb`, `iverilog` or the committed report is missing; never reported as a pass |
+| NOT_RUN / BLOCKED | 2 | `klt`, `cocotb`, `iverilog` or the committed report is missing, klt emitted no JSON report, or a `--control` run executed no tests; never reported as a pass |
 | STALE | 3 | the committed report names RTL hashes different from the tree |
 
 `--write` (a flag of `tools/smoke.py`, not of the make targets)
