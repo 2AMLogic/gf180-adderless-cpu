@@ -20,6 +20,8 @@ jobs:
       - uses: astral-sh/setup-uv@v7
       - name: Harness regression tests (evidence-write guards)
         run: make harness-tests
+      - name: Pin-consistency check (fast lane)
+        run: python3 tools/check_pins.py
       # The committed evidence records the simulator it was produced with,
       # and tools/smoke.py compares engine_version verbatim on a re-run.
       # Ubuntu 24.04's apt iverilog is 12.0; build the pinned 13.0
@@ -45,8 +47,6 @@ jobs:
         run: |
           echo "$HOME/sim/bin" >> "$GITHUB_PATH"
           "$HOME/sim/bin/iverilog" -V | head -1
-      - name: Pin-consistency check (fast lane)
-        run: python3 tools/check_pins.py
       - name: Smoke verification (committed evidence must reproduce)
         run: make smoke
       - name: Negative control (mutant must fail)
