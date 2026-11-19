@@ -18,6 +18,10 @@ jobs:
         with:
           python-version: "3.12"
       - uses: astral-sh/setup-uv@v7
+      # Hermetic exit-code contract tests: no simulator, venv or cache
+      # needed, so they run first and fail before the iverilog build.
+      - name: Exit-code contract tests (fast lane)
+        run: python3 -I tools/test_smoke_exits.py
       - name: Harness regression tests (evidence-write guards)
         run: make harness-tests
       # The committed evidence records the simulator it was produced with,
