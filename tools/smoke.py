@@ -19,8 +19,10 @@ Modes
   --control        run the same request against the SMOKE_MUTATE build
                    and require the smoke test to FAIL there (otherwise a
                    vacuous pass is indistinguishable from a working
-                   harness); writes verification/evidence/
-                   smoke-control.json with --write.
+                   harness); with --write, records verification/
+                   evidence/smoke-control.json only when the control
+                   verdict is OK -- a BLOCKED or FAIL control is not a
+                   control record and leaves the committed one untouched.
 
 Statuses and exit codes
   PASS 0   re-run matches the committed report, every test passed
@@ -274,12 +276,19 @@ def main() -> int:
 
         if args.control:
             status, msg = control_verdict(fresh)
-            if args.write:
-                CONTROL.write_text(json.dumps(scrub(fresh), indent=1,
-                                              sort_keys=True) + "\n",
-                                   encoding="utf-8")
             prefix = {"PASS": "CONTROL_OK", "FAIL": "CONTROL_DEFECT",
                       "BLOCKED": "CONTROL_BLOCKED"}[status]
+            if args.write:
+                # Only a passing control is a control record: a run that
+                # executed no tests (BLOCKED) or whose mutant did not
+                # fail (FAIL) must not replace the committed evidence.
+                if status == "PASS":
+                    CONTROL.write_text(json.dumps(scrub(fresh), indent=1,
+                                                  sort_keys=True) + "\n",
+                                       encoding="utf-8")
+                else:
+                    print(f"{prefix} evidence not written: {CONTROL} kept "
+                          f"(a {status} control is not a control record)")
             print(prefix + " " + msg)
             return EXIT[status]
 

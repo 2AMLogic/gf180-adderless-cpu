@@ -1,4 +1,4 @@
-.PHONY: smoke smoke-control check-pins clean
+.PHONY: smoke smoke-control harness-tests check-pins clean
 
 # Smoke verification harness (issue #2).  Pattern copied from
 # 2AMLogic/gf180-dx7 @ 69f0464147172f3d4a5506fc2a0c555008d3f36e (its FV
@@ -19,6 +19,12 @@ smoke: $(FV_VENV)/bin/klt
 # Negative control: the SMOKE_MUTATE build must fail the same smoke test.
 smoke-control: $(FV_VENV)/bin/klt
 	python3 tools/smoke.py --venv $(FV_VENV) --control
+
+# Harness regression tests (issue #11): the committed evidence writers
+# only overwrite a record with a valid one.  Runs in a throwaway tree
+# copy against a fake venv; no simulator, cocotb or network needed.
+harness-tests:
+	python3 verification/test_smoke_control.py
 
 # Fast lane: the committed evidence must name the pinned toolchain.
 check-pins:

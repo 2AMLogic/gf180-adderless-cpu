@@ -22,6 +22,8 @@ jobs:
       # needed, so they run first and fail before the iverilog build.
       - name: Exit-code contract tests (fast lane)
         run: python3 -I tools/test_smoke_exits.py
+      - name: Harness regression tests (evidence-write guards)
+        run: make harness-tests
       # The committed evidence records the simulator it was produced with,
       # and tools/smoke.py compares engine_version verbatim on a re-run.
       # Ubuntu 24.04's apt iverilog is 12.0; build the pinned 13.0
