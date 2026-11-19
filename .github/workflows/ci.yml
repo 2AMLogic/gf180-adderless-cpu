@@ -1,0 +1,51 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  smoke:
+    # The verification harness is the repo's first claim gate (issue #2):
+    # every PR must keep the committed smoke evidence reproducible and the
+    # negative control live.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v10
+      # The committed evidence records the simulator it was produced with,
+      # and tools/smoke.py compares engine_version verbatim on a re-run.
+      # Ubuntu 24.04's apt iverilog is 12.0; build the pinned 13.0
+      # (cached) so the re-run matches. Recipe from dx7's ci.yml.
+      - name: Cache the pinned simulator
+        id: simcache
+        uses: actions/cache@v6
+        with:
+          path: ~/sim
+          key: sim-iverilog-v13_0-ubuntu-24.04
+      - name: Build Icarus Verilog 13.0
+        if: steps.simcache.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get update && sudo apt-get install -y --no-install-recommends \
+            autoconf gperf flex bison help2man perl g++ make libfl2 libfl-dev zlib1g-dev
+          git clone --depth 1 --branch v13_0 https://github.com/steveicarus/iverilog "$RUNNER_TEMP/iverilog"
+          cd "$RUNNER_TEMP/iverilog"
+          sh autoconf.sh
+          ./configure --prefix="$HOME/sim"
+          make -j"$(nproc)"
+          make install
+      - name: Put the pinned simulator on PATH
+        run: |
+          echo "$HOME/sim/bin" >> "$GITHUB_PATH"
+          "$HOME/sim/bin/iverilog" -V | head -1
+      - name: Pin-consistency check (fast lane)
+        run: python3 tools/check_pins.py
+      - name: Smoke verification (committed evidence must reproduce)
+        run: make smoke
+      - name: Negative control (mutant must fail)
+        run: make smoke-control
