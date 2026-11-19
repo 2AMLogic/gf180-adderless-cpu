@@ -17,15 +17,15 @@
 - **Vectored without arithmetic.** The vector comes from the requesting
   controller over the data bus during the acknowledge cycle, and the new PC
   is a **concatenation, not a sum**: `PC ← {3'b111, vector[7:0]}`. Vectors
-  therefore live in the top program page, 0xE00–0xEFF (512 bytes), and the
+  therefore live in the top program page, 0x700–0x7FF (256 bytes), and the
   hardware performs no address arithmetic — consistent with the no-adder
   rule (DR-0001).
 - **Masking:** `IE` (DR-0002) gates recognition. `IE` is 0 at reset, set to
   1 by `REI`, set to 0 by the entry sequence. There is no `EI`/`DI`
   instruction: critical sections are the automatic entry mask; a program
-  that wants interrupts off simply never executes `REI`'s unmask on that
-  path (i.e. returns with `RET` after pushing nothing — the ISA supports
-  it, DR-0001).
+  that wants interrupts off simply never executes `REI` on that path — it
+  returns with plain `RET` (the ISA supports it, DR-0001; see Return
+  sequence below).
 - **`WAI`** (`DR-0001`) halts the core at the instruction boundary until an
   unmasked request arrives, then runs the entry sequence. `WAI` is the
   intended idle state for event-driven control code.
@@ -34,18 +34,19 @@
 
 | Step | Cycles | Action |
 |---|---|---|
-| Recognize | 0–1 | `irq` sampled high with `IE`=1; the current instruction is allowed to finish (≤ 2 cycles by DR-0001 cycle targets) |
+| Recognize | 0–3 | `irq` sampled high with `IE`=1; the current instruction is allowed to finish (≤ 3 cycles by DR-0001 cycle targets — its longest instructions are the taken conditional branch, `CALL` and `REI`) |
 | Acknowledge | 1 | `ack` strobe to the controller; controller drives `vector[7:0]` on `data` (bus ownership per DR-0003) |
 | Capture + push | 1 | `vector` captured; interrupted PC pushed to the return stack (DR-0002) |
 | Redirect | 1 | `PC ← {3'b111, vector}`; `IE ← 0`; first handler opcode fetch begins |
 
-Counting from the cycle after the request is sampled: ≤ 1 (finish current
-instruction) + 1 (ack) + 1 (capture/push) + 1 (redirect) = **≤ 4 core
+Counting from the cycle after the request is sampled: ≤ 3 (finish current
+instruction) + 1 (ack) + 1 (capture/push) + 1 (redirect) = **≤ 6 core
 cycles**, comfortably inside the ≤ 8-cycle target; the 8-cycle figure is
-the budget that still holds if the final instruction before the request is
-a two-byte branch taken-path. Fallback (row 6): a fixed-vector build that
-skips the acknowledge cycle. Stretch: ≤ 4 cycles, i.e. the sequence above
-with no margin — reached only if the target verifies with room.
+the budget that holds this worst case with margin. Fallback (row 6): a
+fixed-vector build that skips the acknowledge cycle. Stretch: ≤ 4 cycles —
+tighter than the ≤ 6 worst case the sequence above yields, so it is **not
+met by construction**; it is reached only if the target verifies with
+room.
 
 Latency caveat recorded in the table's verification method: the ≤ 8-cycle
 budget covers the core's own entry cost from `irq` to the first handler

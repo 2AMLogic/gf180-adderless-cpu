@@ -58,7 +58,7 @@ verification method per row.
 |---|---|---|---|
 | Data width | 8 bits | — | — |
 | Program address | 11 bits (2 KB of program) | 10 bits (1 KB) | 12 bits (4 KB) |
-| Registers | 8 general registers plus an accumulator; 8-entry return stack | — | 16 registers via a banked extension (future decision record) |
+| Registers | 7 general registers plus an accumulator (eight 3-bit-addressable register slots); 8-entry return stack | — | 16 registers via a banked extension (future decision record) |
 | Arithmetic | increment, decrement, compare, shift, logic; no add or subtract instruction, and no carry-propagate adder in the netlist | compare restricted to equality | — |
 | I/O | 8 output strobes, 8 input selects, one 8-bit data bus | 4 strobes, 4 selects | — |
 | Interrupt | one level, vectored; entry ≤ 8 cycles, return ≤ 4 cycles | fixed vector, entry ≤ 12 cycles | entry ≤ 4 cycles, return ≤ 2 cycles |

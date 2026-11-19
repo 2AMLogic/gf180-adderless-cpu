@@ -25,7 +25,7 @@ This repo carries, and only this repo maintains:
 
 > For every test program in the suite, the assembler, the simulator and the
 > RTL must agree — **cycle-for-cycle** — on the architectural state (A,
-> R0–R7, PC, Z, C, IE, strobe/select/bus windows) at every cycle.
+> R0–R6, PC, Z, C, IE, strobe/select/bus windows) at every cycle.
 
 - Cycle-accurate is the target; the fallback (row 9) is instruction-accurate
   agreement, meaning the state match is checked at instruction boundaries

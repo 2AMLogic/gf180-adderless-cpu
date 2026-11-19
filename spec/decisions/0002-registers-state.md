@@ -7,7 +7,8 @@
 - **Owns table rows:** target-table rows 2 (program address, jointly with
   DR-0001) and 3 (registers).
 - **Supersedes:** the DRAFT "16 general registers plus an accumulator" row
-  (changed to 8 + accumulator with the reason recorded in § Options
+  (changed to 7 general registers + accumulator — eight 3-bit-addressable
+  register slots, `000` = A — with the reason recorded in § Options
   considered; fallback, reset state, and stack rules added).
 
 ## Decision
@@ -15,30 +16,38 @@
 | Element | Size | Count | Notes |
 |---|---|---|---|
 | Accumulator `A` | 8 bits | 1 | Implicit operand of logic/shift/immediate ops; register field value `000` (DR-0001). |
-| General registers `R0`–`R7` | 8 bits | 8 | Uniform, interchangeable; no special roles assigned by hardware. |
+| General registers `R0`–`R6` | 8 bits | 7 | Uniform, interchangeable; no special roles assigned by hardware. The eighth register-field value (`000`) is A, so the 3-bit field addresses A + R0–R6 exactly. |
 | Program counter `PC` | 11 bits | 1 | 2 KB program space (row 2 target). Fallback 10 bits, stretch 12 bits — see trade below. |
 | Flags | 1 bit each | 3 | `Z` (result zero), `C` (carry/borrow/shift-out capture), `IE` (interrupt enable). |
 | Return stack | 11 bits × entries | 8 entries | Holds return addresses for `CALL`/`RET` and interrupt return (DR-0004). Hardware, not memory. |
 
-Total register state: A + 8×8 + PC + 3 flags + 8×11 stack = 174 flip-flop
+Total register state: A + 7×8 + PC + 3 flags + 8×11 stack = 166 flip-flop
 bits of architecturally visible state (plus control latching: interrupt
 mask/vectored-capture bookkeeping, see DR-0004).
 
 ## Options considered
 
-- **8 general registers (chosen) vs the draft's 16:** the draft value was
-  16 + accumulator; the encoding analysis moves it to 8. Every register
-  operation in DR-0001 is a single 8-bit byte, which forces 3-bit register
-  fields (`00 rrr sss` MOV, `01 ooo rrr` group ops); 16 registers need
-  4-bit fields, and 4+4 or 4+3 bit layouts do not fit an 8-bit word with an
-  opcode. Keeping 16 would cost one of: two-byte register operations
-  (cycles and code size in a 2 KB program), an A-only register access
-  scheme, or register banking (more state, more decode). The flop area the
-  extra eight registers would add is trivial — 64 bits ≈ 8 `dffq_1` cells
-  ≈ 0.0005 mm² (see Evidence) — so the deciding currency is not area but
-  uniformity: 8 flat registers keep every instruction single-byte and the
-  decoder trivial. A 16-register banked extension remains available to a
-  future decision record (DR-0001 § Registers named by the ISA).
+- **7 general registers (chosen) vs the draft's 16:** the draft value was
+  16 + accumulator; the encoding analysis leaves seven general slots,
+  because every register field in DR-0001 is 3 bits (`00 rrr sss` MOV,
+  `01 ooo rrr` group ops) and one of its eight values, `000`, is spent on A
+  (DR-0001 § Registers named by the ISA). Every register operation stays a
+  single 8-bit byte; 16 registers need 4-bit fields, and 4+4 or 4+3 bit
+  layouts do not fit an 8-bit word with an opcode. Keeping 16 would cost
+  one of: two-byte register operations (cycles and code size in a 2 KB
+  program), an A-only register access scheme, or register banking (more
+  state, more decode). The flop cost of the draft's register count is
+  measurable, not trivial: 16 GPRs + A is 136 register bits against this
+  decision's 64, i.e. 72 extra bits ≈ 72 `dffq_1` cells ≈ 0.0046 mm² of
+  cell area (see Evidence), ≈ 0.0065 mm² of core at the 70 % utilization
+  DR-0006 budgets at — roughly 13 % of the row-10 area target. The deciding
+  currency is still uniformity, not that area: 8 register slots keep every
+  instruction single-byte and the decoder trivial, and no affordable flop
+  count buys back a clean 3-bit encoding. But the trade is recorded at its
+  real size: it is a visible fraction of the target, and a future record
+  that wants those registers back should say so against this number, not a
+  rounded-to-zero one. A 16-register banked extension remains available to
+  a future decision record (DR-0001 § Registers named by the ISA).
 - **8-entry hardware return stack (chosen) vs 4 or 16:** 4 entries is the
   floor for `CALL` nesting plus one interrupt (which needs 2: current PC and
   a safe margin, DR-0004); typical control hierarchies nest deeper than 4.
@@ -78,7 +87,7 @@ mask/vectored-capture bookkeeping, see DR-0004).
 | A | 0x00 |
 | Z, C | 0 |
 | IE | 0 (interrupts masked) |
-| R0–R7 | **Indeterminate** (no reset flops — area; software initializes before use) |
+| R0–R6 | **Indeterminate** (no reset flops — area; software initializes before use) |
 | Return stack | All 8 entries invalid; a pop from an all-invalid stack returns 0x000 (defined, testable) |
 
 GPRs without reset is a deliberate area/robustness trade: resettable flops
@@ -115,8 +124,9 @@ hide.
   Source: <https://github.com/google/globalfoundries-pdk-libs-gf180mcu_fd_sc_mcu7t5v0>
   (`cells/<cell>/<cell>_1.lef`).
 - Draft value provenance: the pre-spec README target table (16 registers +
-  accumulator) — **changed** to 8 by the encoding analysis in § Options
-  considered; recorded here so the departure from the draft is traceable.
+  accumulator) — **changed** to 7 general registers + accumulator by the
+  encoding analysis in § Options considered; recorded here so the
+  departure from the draft is traceable.
 
 ## Verification method
 

@@ -15,11 +15,19 @@ There is no address bus, no wait states, no DMA, no bus arbitration: every
 transfer is one instruction (`OUT #p` or `IN #p`, DR-0001) and the port
 index is in the opcode.
 
-| Signal group | Width | Direction | Driven by |
-|---|---|---|---|
-| `strobe[7:0]` | 8 | output | CPU, during `OUT` |
-| `select[7:0]` | 8 | output | CPU, during `IN` |
-| `data[7:0]` | 8 | bidirectional, tri-state | CPU during `OUT` cycle 2; external world during `IN` cycle 2; high-Z at all other times |
+| Signal group | Width | Direction | Driven by | Defined by |
+|---|---|---|---|---|
+| `strobe[7:0]` | 8 | output | CPU, during `OUT` | this record |
+| `select[7:0]` | 8 | output | CPU, during `IN` | this record |
+| `data[7:0]` | 8 | bidirectional, tri-state | CPU during `OUT` cycle 2; external world during `IN` cycle 2 and the interrupt acknowledge cycle (DR-0004); high-Z at all other times | this record |
+| `irq` | 1 | input | interrupting controller | DR-0004 |
+| `ack` | 1 | output | CPU, during the interrupt acknowledge cycle | DR-0004 |
+| `halt` | 1 | output | CPU, on a reserved encoding (stop fetching; DR-0005) | DR-0005 |
+
+This table is the complete top-level interface the RTL must present: every
+core signal is listed here, and each control signal is defined by the
+record named in the last column. Clock and reset are supplied by the
+harness (repo charter), not by this record.
 
 Ports are **index-addressed, not memory-mapped**: `OUT #3` pulses
 `strobe[3]`; `IN #5` pulses `select[5]`. The 3-bit field caps the count at

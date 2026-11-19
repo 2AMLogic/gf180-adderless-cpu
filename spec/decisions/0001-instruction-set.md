@@ -60,11 +60,13 @@ check in (2) is what enforces it mechanically.
 
 ## Registers named by the ISA
 
-`A` (accumulator) and `R0`–`R7` (general registers). In every encoding, the
+`A` (accumulator) and `R0`–`R6` (general registers). In every encoding, the
 3-bit register field value `000` designates **A**, so `MOV r,A` and
-`MOV A,r` cover register↔accumulator moves with no separate opcode. See
-DR-0002 for the full state model and for why the target is 8 flat registers
-rather than the draft's 16.
+`MOV A,r` cover register↔accumulator moves with no separate opcode. The
+field has exactly eight values: one names A, seven name general registers —
+A + R0–R6 is every name the encoding can address, and the spec deliberately
+names no more. See DR-0002 for the full state model and for why the target
+is 8 register slots (one of them A) rather than the draft's 16.
 
 Encoding consequence, stated so it cannot be "fixed" casually: **every
 register field in this ISA is 3 bits.** A 16-register file does not fit the
@@ -79,7 +81,7 @@ own decision record, never by promoting reserved encodings ad hoc.
 | Mode | Syntax | Encoded as |
 |---|---|---|
 | Implied | `SHL` | opcode only; operand is A |
-| Register | `INC R3`, `MOV R7,A` | 3-bit register field in the opcode (`000` = A) |
+| Register | `INC R3`, `MOV R6,A` | 3-bit register field in the opcode (`000` = A) |
 | Register + immediate | `MOV R2,#imm8` | opcode byte, then one immediate byte |
 | Absolute (program) | `JMP addr`, `CALL addr` | opcode byte carrying target bits [10:8], then one byte carrying bits [7:0] |
 | Port | `OUT #p`, `IN #p` | 3-bit port field in the opcode |
@@ -93,14 +95,14 @@ and not programmatically readable except by executing it.)
 
 Every instruction word is 8 bits; two-byte instructions fetch one following
 byte. All reserved encodings are illegal: the assembler rejects them, the
-simulator and the RTL treat them as halt-and-flag (documented in DR-0005 /
-DR-0002), and no future revision will silently promote a reserved encoding
+simulator and the RTL treat them as halt-and-flag (documented in DR-0005),
+and no future revision will silently promote a reserved encoding
 to a defined one — that takes a new decision record.
 
 ### Class `00` — MOV (register to register)
 
 ```
-00 rrr sss   MOV R(rrr), R(sss)     ; field 000 means A; covers A + R0–R7
+00 rrr sss   MOV R(rrr), R(sss)     ; field 000 means A; covers A + R0–R6
 ```
 
 64 encodings, all defined. `MOV X,X` is legal and defined as a no-op (it

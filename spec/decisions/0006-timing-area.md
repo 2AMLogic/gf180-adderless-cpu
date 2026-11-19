@@ -76,11 +76,11 @@ The three voltage families are the same cell set characterized at 1.8 V,
 
 Sanity check that the target is engineering-reachable, not aspiration — a
 bottom-up flop+gate budget from the library's LEF sizes (`main`
-@ `43beb45e4d32`): DR-0002's 174 state bits ≈ 11 kµm² of flops
+@ `43beb45e4d32`): DR-0002's 166 state bits ≈ 10.6 kµm² of flops
 (`dffq_1` ≈ 63.7 µm²); decoder, ALU-lite (the no-adder logic of DR-0001),
 control and I/O machinery ≈ 1.5–3 k equivalent `nand2_1` (≈ 11 µm² each)
-≈ 17–33 kµm²; total cell area ≈ 28–44 kµm². At a conventional 70%
-placement utilization the core lands ≈ **0.040–0.063 mm²** — the
+≈ 17–33 kµm²; total cell area ≈ 27–44 kµm². At a conventional 70%
+placement utilization the core lands ≈ **0.039–0.063 mm²** — the
 0.05 mm² target sits inside that band, the 0.08 mm² fallback
 clearly covers its loose end, and the 0.03 mm² stretch demands the
 high end of gate-count efficiency. These are budget numbers from LEF
@@ -96,9 +96,20 @@ column).
 
 - **Baseline (`adder-ref`):** a variant of this CPU differing in exactly
   one ISA feature — it adds `ADD A,r` (semantics: `A ← A + r` mod 256,
-  C ← carry-out; one encoding taken from DR-0001's class `01` reserved
-  space; no other change: same registers, I/O, interrupt model, cycle
-  targets). Its incrementer/decrementer/comparator may collapse onto the
+  C ← carry-out). **Encoding source, stated exactly:** DR-0001's class
+  `01` has **no** reserved encodings — all eight `ooo` values are defined
+  (INC, DEC, AND, OR, XOR, CMP, SHL, SHR) — so the baseline cannot take an
+  encoding from reserved space. It takes the class-`01` encodings whose
+  `rrr` field DR-0001's hardware ignores, the `SHL`-slot aliases
+  `01 110 rrr` with `rrr ≠ 000` (7 encodings), and defines `ADD A,r`
+  there for `r` ∈ R0–R6. Those encodings are **aliases of defined
+  instructions, not reserved encodings**: adopting them means the baseline
+  demotes the ignored-field alias behavior — in the baseline, `SHL` keeps
+  only its assembler-emitted `rrr = 000` encoding — and `ADD A,A` (the
+  `rrr = 000` operand value) does not exist; the adderless design keeps
+  the aliases, and no *reserved* encoding of DR-0001 is promoted. No other
+  change: same registers, I/O, interrupt model, cycle targets. Its
+  incrementer/decrementer/comparator may collapse onto the
   adder where the synthesis tool chooses; the `addf`/`addh` netlist
   exclusion of DR-0001 **does not apply** to the baseline.
 - **Method:** both designs go through the identical flow — same RTL style,
