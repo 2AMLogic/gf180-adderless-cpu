@@ -76,6 +76,8 @@ measurements/  silicon characterization (empty until tape-out)
 rtl/           Verilog sources
 spec/          ratified spec + decision records
 verification/  cocotb testbenches
+WORK_LOG.md    chronological record of merged PRs and closed issues (Guide)
+WORK_PLAN.md   backlog snapshot from GitHub label state (Guide)
 ```
 
 ## License

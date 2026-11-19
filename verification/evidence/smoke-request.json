@@ -1,0 +1,14 @@
+{
+  "sources": [
+    "../../rtl/smoke_reg.v"
+  ],
+  "hdl_toplevel": "smoke_reg",
+  "engine": "icarus",
+  "testbench": {
+    "module": "test_smoke",
+    "search_path": ".."
+  },
+  "options": {
+    "random_seed": 1
+  }
+}

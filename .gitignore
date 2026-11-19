@@ -7,6 +7,10 @@ __pycache__/
 
 # synthesis / P&R scratch
 flow/build/
+# smoke verification harness (issue #2): throwaway venv + run scratch
+.venv-fv/
+build/
+.klt/
 # local klt install, created by the setup script
 .venv/
 # >>> loom-managed (do not edit) >>>
