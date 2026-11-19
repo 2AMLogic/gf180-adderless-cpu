@@ -128,13 +128,17 @@ def compare(committed: dict, fresh: dict, current_hashes: dict) -> tuple:
 
 def control_verdict(report: dict) -> tuple:
     """A negative control passes only if the mutant makes every smoke
-    test fail (and at least one ran)."""
+    test fail (and at least one ran).  -> (status, message) with status
+    in {"PASS", "FAIL", "BLOCKED"}: a run that executed no tests is a
+    harness breakage (BLOCKED), not a FAIL verdict."""
     tests = {t["name"]: t["status"] for t in report.get("tests", [])}
     if not tests:
-        return False, f"no tests ran; report status {report.get('status')}"
+        return "BLOCKED", (f"no tests ran; report status "
+                           f"{report.get('status')}")
     ok = all(s == "failed" for s in tests.values())
-    return ok, ("mutant fails the smoke test" if ok
-                else f"mutant did NOT fail: {tests}")
+    if ok:
+        return "PASS", "mutant fails the smoke test"
+    return "FAIL", f"mutant did NOT fail: {tests}"
 
 
 def tooling(venv: Path) -> tuple:
@@ -152,7 +156,9 @@ def tooling(venv: Path) -> tuple:
     return klt, ""
 
 
-def run_klt(klt: Path, request: Path, outdir: Path, env: dict) -> dict:
+def run_klt(klt: Path, request: Path, outdir: Path, env: dict):
+    """Run klt; -> the JSON report, or None when klt produced none
+    (a BLOCKED harness breakage, not a FAIL verdict)."""
     proc = subprocess.run(
         [str(klt), "functional-verification", str(request),
          "--outdir", str(outdir), "--format", "json"],
@@ -161,7 +167,8 @@ def run_klt(klt: Path, request: Path, outdir: Path, env: dict) -> dict:
         return json.loads(proc.stdout)
     except json.JSONDecodeError:
         sys.stderr.write(proc.stdout[-2000:] + proc.stderr[-2000:])
-        raise SystemExit("BLOCKED: klt produced no JSON report")
+        print("BLOCKED: klt produced no JSON report", file=sys.stderr)
+        return None
 
 
 def klt_version(klt: Path) -> str:
@@ -261,16 +268,20 @@ def main() -> int:
                      "any spec content")
 
         fresh = run_klt(klt, rq, outdir / "run", env)
+        if fresh is None:
+            return EXIT["BLOCKED"]
         fresh["provenance"] = provenance(klt, defines, claim)
 
         if args.control:
-            ok, msg = control_verdict(fresh)
+            status, msg = control_verdict(fresh)
             if args.write:
                 CONTROL.write_text(json.dumps(scrub(fresh), indent=1,
                                               sort_keys=True) + "\n",
                                    encoding="utf-8")
-            print(("CONTROL_OK " if ok else "CONTROL_DEFECT ") + msg)
-            return 0 if ok else 1
+            prefix = {"PASS": "CONTROL_OK", "FAIL": "CONTROL_DEFECT",
+                      "BLOCKED": "CONTROL_BLOCKED"}[status]
+            print(prefix + " " + msg)
+            return EXIT[status]
 
         if args.write:
             REPORT.write_text(json.dumps(scrub(fresh), indent=1,
