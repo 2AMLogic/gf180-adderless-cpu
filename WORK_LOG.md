@@ -10,4 +10,8 @@ Entries are grouped by date, newest first. Each entry references the merged PR o
 
 ### 2026-11-19
 
-- Work log created by the Guide role. No PRs merged and no issues closed yet.
+- **PR #8**: fix: smoke harness breakage exits BLOCKED (2), not FAIL (1)
+- **Issue #7** (closed): smoke.py: a BLOCKED harness failure exits 1 (FAIL), not 2
+- **PR #5**: feat: add smoke verification harness with committed evidence and negative control
+- **Issue #2** (closed): Bootstrap the verification harness
+- Work log created by the Guide role.
