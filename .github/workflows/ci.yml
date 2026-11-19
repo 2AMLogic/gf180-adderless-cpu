@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v7
       # The committed evidence records the simulator it was produced with,
       # and tools/smoke.py compares engine_version verbatim on a re-run.
       # Ubuntu 24.04's apt iverilog is 12.0; build the pinned 13.0
