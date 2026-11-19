@@ -57,7 +57,8 @@ to build `.venv-fv`.
 
 `--write` (a flag of `tools/smoke.py`, not of the make targets)
 regenerates `verification/evidence/smoke.json`; `--control --write`
-regenerates `verification/evidence/smoke-control.json`.
+regenerates `verification/evidence/smoke-control.json`, but only when
+the control verdict is OK (see below).
 
 ## Negative control
 
@@ -67,7 +68,12 @@ compiles an inverted capture into `rtl/smoke_reg.v` — and requires the
 same smoke test to FAIL there. Without it, a vacuous pass would be
 indistinguishable from a working harness. The recorded mutant run is
 `verification/evidence/smoke-control.json` (`CONTROL_OK` on the live
-run).
+run). `--control --write` records only a passing control: a run that
+executed no tests (`CONTROL_BLOCKED`) or whose mutant did not fail
+(`CONTROL_DEFECT`) is not a control record, so it leaves the committed
+`smoke-control.json` byte-identical, prints a `... evidence not written`
+line, and still exits nonzero. Recorded results are append-only
+evidence; a non-OK control run produces no verdict to record.
 
 ## What is committed (`verification/evidence/`)
 
