@@ -7,7 +7,7 @@ The body below is a snapshot of GitHub label state as of the last merged docs-ma
 <!-- Maintained automatically by the Guide triage agent. Manual edits are fine but may be overwritten. -->
 
 <!-- guide:plan-body:start -->
-_Generated: 2026-11-19T08:10:10Z (snapshot; compare against live labels)_
+_Generated: 2026-11-22T22:15:52Z (snapshot; compare against live labels)_
 ## Operator Attention: Merge-Risk-Hold Pileup
 
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
@@ -30,7 +30,7 @@ _None._
 
 Human-approved issues (`loom:issue`) ready for implementation — excluding held (`loom:blocked`/`loom:operator`/`loom:frozen`), `loom:building`, and issues closed by an open `loom:pr` PR (listed under Approved).
 
-_None._
+- **#18**: Bring up the implementation flow on the smoke register: synthesize, place-and-route, DRC, LVS and supply ERC through klt, with committed evidence and a pinned toolchain
 
 ## In Progress
 
@@ -55,6 +55,7 @@ _None._
 Issues carrying `loom:curated`.
 
 - **#1**: Draft and ratify the target spec *(curated)*
+- **#18**: Bring up the implementation flow on the smoke register: synthesize, place-and-route, DRC, LVS and supply ERC through klt, with committed evidence and a pinned toolchain *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -71,11 +72,11 @@ _None._
 | Operator merge-risk holds | 0 |
 | Very important | 0 |
 | Important | 0 |
-| Ready (`loom:issue`, net of holds/building/merge-pending) | 0 |
+| Ready (`loom:issue`, net of holds/building/merge-pending) | 1 |
 | In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 1 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 1 |
+| Curated | 2 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
