@@ -1,0 +1,131 @@
+{
+ "abc_constr": {
+  "driving_cell": "gf180mcu_fd_sc_mcu9t5v0__buf_4",
+  "load_ff": 13.43,
+  "source": "builtin"
+ },
+ "area_um2": 90.3168,
+ "arithmetic": null,
+ "baseline": null,
+ "blackbox_modules": [],
+ "cell_exclusions": {
+  "effective": [],
+  "engine_supports_dont_use": null,
+  "library_defaults": [],
+  "mode": "additive",
+  "requested": [],
+  "validated": null
+ },
+ "cells_without_area": [],
+ "clock_targets": {
+  "clocks": [],
+  "delay_target_basis": "none",
+  "delay_target_ps": null,
+  "per_clock_enforced": false
+ },
+ "defines": {},
+ "engine": "yosys",
+ "engine_version": "0.67+post",
+ "equivalence": null,
+ "flow": {
+  "claim": "smoke register runs through synthesis, place-and-route, DRC, gate-level LVS and the supply ERC read on gf180mcu via klt; not the CPU, the ISA, any spec content, or the block's target library, site or corner",
+  "elapsed_s": 2.402,
+  "engine_versions": {
+   "openroad": "OpenROAD 26Q3-1510-g6cb3f2b704",
+   "yosys": "Yosys 0.67+post (git sha1 b8e7da6f40ae8f552c116bf6c359b07c6533e159, Release, GNU /usr/bin/c++ 13.3.0)"
+  },
+  "gate": "none",
+  "gates": {},
+  "generated_at": "2026-11-22T23:32:29+00:00",
+  "klt_command": [
+   "klt",
+   "synthesize",
+   "flow/request-synth-smoke.json",
+   "--pdk",
+   "gf180mcuC",
+   "--format",
+   "json"
+  ],
+  "klt_exit": 0,
+  "klt_version": "0.9.2",
+  "reasons": [],
+  "request": "flow/request-synth-smoke.json",
+  "request_overrides": {},
+  "request_sha256": "3bb52a26ba84c8ec98dcc8673ba9c146a14af7f7bafca0dbcf1248c202314eeb",
+  "rtl_sha256": {
+   "rtl/smoke_reg.v": "b5787d009eeb2a3a9cc9eeb6449dcc21577cd00c5288e43934926856ea5b7099"
+  },
+  "step": "synth",
+  "verdict": "PASS"
+ },
+ "hdl_toplevel": "smoke_reg",
+ "instance_count": 1,
+ "instance_counts_by_type": {
+  "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1": 1
+ },
+ "leakage_by_type_nw": null,
+ "leakage_power_nw": null,
+ "macro_instance_count": 0,
+ "macro_instance_counts_by_type": {},
+ "macros": [],
+ "memory_mapping": {
+  "modules": [],
+  "reason": null,
+  "status": "none_detected"
+ },
+ "netlist_sha256": "e4d5d6d8659dbecc17e0d6bd9b1f10fd735bb363150eed177b0ad8d3737c4ad3",
+ "parameters": {},
+ "provenance": {
+  "deck": {
+   "content_hash": "sha256:c0b6946a2d48a4604c687a29d3c8b1e05b3da5a42866b21592eaacfeae6e9ca7",
+   "name": "gf180mcu_fd_sc_mcu9t5v0__tt_025C_1v80",
+   "released": false
+  },
+  "defines": {},
+  "input": {
+   "content_hash": "sha256:b5787d009eeb2a3a9cc9eeb6449dcc21577cd00c5288e43934926856ea5b7099",
+   "role": "source"
+  },
+  "klayout_version": "0.30.13",
+  "klt_git_commit": "046ba74652fc096bd97071fc3237f7159dd40183",
+  "klt_reinstall_spec": "klayout-tools==0.9.2",
+  "klt_version": "0.9.2",
+  "parameters": {},
+  "pdk": {
+   "ambiguous_sources": [
+    "search root: ~/.volare"
+   ],
+   "name": "gf180mcuC",
+   "source": "search root: ~/.ciel",
+   "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
+  }
+ },
+ "restructuring": null,
+ "schema_version": 2,
+ "sequential_area_um2": 90.3168,
+ "sta": null,
+ "sta_unavailable_reason": "the optional klt_statime_native extension is not installed (it is not shipped with the published klayout-tools package), so no gate-level static timing analysis was attempted -- from a repo checkout, run `uv sync --group statime` (or `maturin develop --release` inside native/statime/) and re-run to populate `sta`; from an installed package, `klt sta` with a `verilog` request gives a netlist-level timing estimate (needs OpenSTA)",
+ "status": "ok",
+ "structural": {
+  "comb_loops": 0,
+  "expected_latches": 0,
+  "has_critical": false,
+  "latches": 0,
+  "multi_driven": 0,
+  "unexpected_latches": 0
+ },
+ "timing": null,
+ "warnings": {
+  "by_category": {
+   "timing_unavailable": 1
+  },
+  "representatives": [
+   {
+    "category": "timing_unavailable",
+    "count": 1,
+    "text": "The current invocation's ABC log has no readable stime summary; timing is null and any requested clock target remains unverified."
+   }
+  ],
+  "total": 1
+ }
+}

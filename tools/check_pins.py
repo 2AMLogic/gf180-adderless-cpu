@@ -17,6 +17,14 @@ evidence actually records:
 Files under verification/evidence/ without a `provenance` block (the klt
 request) carry no recorded toolchain and are skipped without a verdict.
 
+The implementation-flow evidence (flow/evidence/, issue #18) is checked the
+same way against the same klayout-tools pin, reading klt's own
+provenance.klt_version (a bare version there); its records carry no cocotb.
+layout/toolchain.json is the pin's layout-side statement, so it is checked
+too: no FILL marker left, klt_install naming the FV_PINS version, and
+klt_last_verified_commit equal to the commit every flow record's
+provenance.klt_git_commit names.
+
 Adapted from 2AMLogic/gf180-dx7 @
 69f0464147172f3d4a5506fc2a0c555008d3f36e (tools/check_fv_pins.py).
 
@@ -32,7 +40,13 @@ import sys
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(TOOLS_DIR)
 MAKEFILE = "Makefile"
-EVIDENCE_DIR = os.path.join("verification", "evidence")
+EVIDENCE_DIRS = {
+    os.path.join("verification", "evidence"): ("klayout-tools", "cocotb"),
+    os.path.join("flow", "evidence"): ("klayout-tools",),
+}
+TOOLCHAIN_FILE = os.path.join("layout", "toolchain.json")
+TOOLCHAIN_FILLED = ("klt_install", "klt_last_verified_commit",
+                    "klayout_package_min")
 
 # FV_PINS pin -> the report field that must name the same version. A pin
 # outside this table is a checker gap (could-not-run, never a silent
@@ -42,13 +56,14 @@ PIN_RULES = {
     "cocotb": "cocotb_version",
 }
 
-KLT_VERSION_RE = re.compile(r"klt\s+(\S+)")
+KLT_VERSION_RE = re.compile(r"(?:klt\s+)?(\S+)")
 PIN_RE = re.compile(r"([A-Za-z0-9][A-Za-z0-9._-]*)==([0-9][A-Za-z0-9._+-]*)")
 
 REMEDY = (
     "rm -rf .venv-fv && make smoke && "
     "python3 tools/smoke.py --venv .venv-fv --write && "
-    "python3 tools/smoke.py --venv .venv-fv --control --write"
+    "python3 tools/smoke.py --venv .venv-fv --control --write; for "
+    "flow/evidence, make flow-smoke-write"
 )
 
 
@@ -115,13 +130,13 @@ def parse_fv_pins(repo_root):
     return pins
 
 
-def check_report(label, report, pins):
-    """-> [reasons] for one committed report dict. Every FV_PINS pin is
-    compared; a malformed or missing recorded version is a stated
-    failure, never a silent pass."""
+def check_report(label, report, pins, rules):
+    """-> [reasons] for one committed report dict. Every FV_PINS pin that
+    has a rule in `rules` is compared; a malformed or missing recorded
+    version is a stated failure, never a silent pass."""
     reasons = []
     for dist, field in PIN_RULES.items():
-        if dist not in pins:
+        if dist not in pins or dist not in rules:
             continue
         pinned = pins[dist]
         if dist == "klayout-tools":
@@ -178,6 +193,52 @@ def check_report(label, report, pins):
     return reasons
 
 
+def check_toolchain(repo_root, pins, flow_reports):
+    """-> [reasons] for layout/toolchain.json against FV_PINS and the
+    flow evidence's recorded klt commit."""
+    path = os.path.join(repo_root, TOOLCHAIN_FILE)
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            pin = json.load(fh)
+    except (OSError, json.JSONDecodeError) as exc:
+        raise CouldNotRun(f"cannot read {TOOLCHAIN_FILE}: {exc}")
+    if not isinstance(pin, dict):
+        raise CouldNotRun(f"{TOOLCHAIN_FILE} is not a JSON object")
+    reasons = []
+    for field in TOOLCHAIN_FILLED:
+        value = pin.get(field)
+        if not isinstance(value, str) or not value.strip():
+            reasons.append(f"{TOOLCHAIN_FILE}: {field} is missing or not "
+                           "a string")
+        elif "FILL" in value:
+            reasons.append(f"{TOOLCHAIN_FILE}: {field} still carries a "
+                           "FILL marker")
+    commands = pin.get("klt_required_commands")
+    if (not isinstance(commands, list) or not commands
+            or not all(isinstance(c, str) and c for c in commands)):
+        reasons.append(f"{TOOLCHAIN_FILE}: klt_required_commands must be a "
+                       "non-empty list of command names")
+    pinned = pins.get("klayout-tools")
+    if pinned is not None:
+        expected = f"klayout-tools=={pinned}"
+        if pin.get("klt_install") != expected:
+            reasons.append(
+                f"{TOOLCHAIN_FILE}: klt_install is {pin.get('klt_install')!r}, "
+                f"but FV_PINS pins \"{expected}\"; the layout pin and the "
+                "Makefile pin must move together")
+    verified = pin.get("klt_last_verified_commit")
+    for name, report in flow_reports:
+        provenance = report.get("provenance")
+        commit = provenance.get("klt_git_commit") if isinstance(
+            provenance, dict) else None
+        if commit and commit != verified:
+            reasons.append(
+                f"{name}: provenance.klt_git_commit is {commit}, but "
+                f"{TOOLCHAIN_FILE} klt_last_verified_commit is {verified!r}; "
+                "the flow evidence was not produced by the pinned commit")
+    return reasons
+
+
 def run_check(repo_root):
     pins = parse_fv_pins(repo_root)
     unknown = sorted(set(pins) - set(PIN_RULES))
@@ -185,25 +246,31 @@ def run_check(repo_root):
         raise CouldNotRun(
             f"FV_PINS pins {unknown}, for which no comparison rule is "
             "implemented; extend tools/check_pins.py")
-    evid = os.path.join(repo_root, EVIDENCE_DIR)
-    if not os.path.isdir(evid):
-        raise CouldNotRun(f"evidence directory {evid} not found")
     checked, skipped, reasons = [], [], []
-    for name in sorted(os.listdir(evid)):
-        if not name.endswith(".json"):
-            continue
-        path = os.path.join(evid, name)
-        try:
-            with open(path, "r", encoding="utf-8") as fh:
-                report = json.load(fh)
-        except (OSError, json.JSONDecodeError) as exc:
-            reasons.append(f"{name}: unreadable or not JSON: {exc}")
-            continue
-        if not isinstance(report, dict) or "provenance" not in report:
-            skipped.append(name)
-            continue
-        checked.append(name)
-        reasons.extend(check_report(name, report, pins))
+    flow_reports = []
+    for rel, rules in EVIDENCE_DIRS.items():
+        evid = os.path.join(repo_root, rel)
+        if not os.path.isdir(evid):
+            raise CouldNotRun(f"evidence directory {evid} not found")
+        for name in sorted(os.listdir(evid)):
+            if not name.endswith(".json"):
+                continue
+            label = os.path.join(rel, name)
+            path = os.path.join(evid, name)
+            try:
+                with open(path, "r", encoding="utf-8") as fh:
+                    report = json.load(fh)
+            except (OSError, json.JSONDecodeError) as exc:
+                reasons.append(f"{label}: unreadable or not JSON: {exc}")
+                continue
+            if not isinstance(report, dict) or "provenance" not in report:
+                skipped.append(label)
+                continue
+            checked.append(label)
+            reasons.extend(check_report(label, report, pins, rules))
+            if rel == os.path.join("flow", "evidence"):
+                flow_reports.append((label, report))
+    reasons.extend(check_toolchain(repo_root, pins, flow_reports))
     if not checked:
         raise CouldNotRun(
             f"no committed evidence report with a provenance block found "

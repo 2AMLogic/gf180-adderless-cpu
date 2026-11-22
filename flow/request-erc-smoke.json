@@ -1,0 +1,26 @@
+{
+  "_comment": "klt erc supply spec for the smoke register (issue #18). Layer numbers are gf180mcu GDS layer/datatype: Poly2 30/0 (gate), Comp 22/0 (active), Contact 33/0, Metal1..Metal5 34/0 36/0 42/0 46/0 81/0, Via1..Via4 35/0 38/0 40/0 41/0; Nwell 21/0 and LVPWELL 204/0 are the wells the gf180mcu_fd_sc_mcu9t5v0 cells draw, and a tap there is Comp inside Nplus 32/0 / Pplus 31/0. Every strap layer of the smoke power block (Metal1 followpins, Metal4, Metal5) is declared, with the layers between bridged by their vias, so each supply resolves through the whole grid.",
+  "stackup": [
+    { "name": "poly2",   "layer": "30/0", "role": "gate", "active_layer": "22/0" },
+    { "name": "Metal1",  "layer": "34/0", "label_layer": "34/10" },
+    { "name": "Metal2",  "layer": "36/0" },
+    { "name": "Metal3",  "layer": "42/0" },
+    { "name": "Metal4",  "layer": "46/0", "label_layer": "46/10" },
+    { "name": "Metal5",  "layer": "81/0", "label_layer": "81/10" }
+  ],
+  "vias": [
+    { "name": "contact", "layer": "33/0", "between": ["poly2", "Metal1"] },
+    { "name": "via1",    "layer": "35/0", "between": ["Metal1", "Metal2"] },
+    { "name": "via2",    "layer": "38/0", "between": ["Metal2", "Metal3"] },
+    { "name": "via3",    "layer": "40/0", "between": ["Metal3", "Metal4"] },
+    { "name": "via4",    "layer": "41/0", "between": ["Metal4", "Metal5"] }
+  ],
+  "nets": [
+    { "name": "VDD", "kind": "supply" },
+    { "name": "VSS", "kind": "supply" }
+  ],
+  "ties": [
+    { "name": "nwell_tie", "well_layer": "21/0",  "tap_layer": "22/0", "tap_requires": ["32/0"], "connect_to": "Metal1", "net": "VDD" },
+    { "name": "pwell_tie", "well_layer": "204/0", "tap_layer": "22/0", "tap_requires": ["31/0"], "connect_to": "Metal1", "net": "VSS" }
+  ]
+}

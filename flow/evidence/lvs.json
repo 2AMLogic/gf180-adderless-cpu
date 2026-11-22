@@ -1,0 +1,439 @@
+{
+ "abstract_cells": [
+  "gf180mcu_fd_sc_mcu9t5v0__*"
+ ],
+ "abstracted_cells": [
+  {
+   "cell": "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1",
+   "instance_count": 1,
+   "lef_path": null,
+   "pin_count": 6,
+   "resolution_source": "in_cell_labels"
+  },
+  {
+   "cell": "gf180mcu_fd_sc_mcu9t5v0__endcap",
+   "instance_count": 52,
+   "lef_path": null,
+   "pin_count": 2,
+   "resolution_source": "in_cell_labels"
+  },
+  {
+   "cell": "gf180mcu_fd_sc_mcu9t5v0__fill_1",
+   "instance_count": 26,
+   "lef_path": null,
+   "pin_count": 2,
+   "resolution_source": "in_cell_labels"
+  },
+  {
+   "cell": "gf180mcu_fd_sc_mcu9t5v0__fill_16",
+   "instance_count": 27,
+   "lef_path": null,
+   "pin_count": 2,
+   "resolution_source": "in_cell_labels"
+  },
+  {
+   "cell": "gf180mcu_fd_sc_mcu9t5v0__fill_2",
+   "instance_count": 14,
+   "lef_path": null,
+   "pin_count": 2,
+   "resolution_source": "in_cell_labels"
+  },
+  {
+   "cell": "gf180mcu_fd_sc_mcu9t5v0__fill_32",
+   "instance_count": 41,
+   "lef_path": null,
+   "pin_count": 2,
+   "resolution_source": "in_cell_labels"
+  },
+  {
+   "cell": "gf180mcu_fd_sc_mcu9t5v0__fill_4",
+   "instance_count": 1,
+   "lef_path": null,
+   "pin_count": 2,
+   "resolution_source": "in_cell_labels"
+  },
+  {
+   "cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
+   "instance_count": 63,
+   "lef_path": null,
+   "pin_count": 2,
+   "resolution_source": "in_cell_labels"
+  },
+  {
+   "cell": "gf180mcu_fd_sc_mcu9t5v0__fill_8",
+   "instance_count": 27,
+   "lef_path": null,
+   "pin_count": 2,
+   "resolution_source": "in_cell_labels"
+  },
+  {
+   "cell": "gf180mcu_fd_sc_mcu9t5v0__filltie",
+   "instance_count": 14,
+   "lef_path": null,
+   "pin_count": 2,
+   "resolution_source": "in_cell_labels"
+  }
+ ],
+ "body_verification": {
+  "device_classes": [],
+  "device_count": 0,
+  "finding_count": 0,
+  "findings": [],
+  "reason": null,
+  "status": "verified"
+ },
+ "category_counts": {
+  "topology": 3,
+  "topology.power_only_pruned": 1,
+  "topology.top_level_pins_anchored": 1
+ },
+ "category_error_counts": {},
+ "constant_nets_applied": null,
+ "counts": {
+  "devices": {
+   "layout": 0,
+   "matched": 0,
+   "reference": 0
+  },
+  "nets": {
+   "layout": 6,
+   "matched": 12,
+   "reference": 4
+  },
+  "pins": {
+   "layout": 6,
+   "matched": 12,
+   "reference": 4
+  }
+ },
+ "def_net_names": true,
+ "def_pins": "build/par/smoke_reg.def",
+ "device_classes": [
+  "nfet",
+  "pfet",
+  "bjt",
+  "cap_mim_2f0_m4m5_noshield",
+  "cap_nmos_03v3",
+  "cap_nmos_03v3_dn",
+  "cap_pmos_03v3",
+  "cap_pmos_03v3_dn",
+  "cap_nmos_06v0",
+  "cap_nmos_06v0_dn",
+  "cap_pmos_06v0",
+  "cap_pmos_06v0_dn",
+  "cap_nmos_03v3_b",
+  "cap_pmos_03v3_b",
+  "cap_nmos_06v0_b",
+  "cap_pmos_06v0_b",
+  "resistor",
+  "diode_nd2ps_06v0",
+  "diode_pd2nw_06v0"
+ ],
+ "device_parameter_coverage": [],
+ "engine": "klayout",
+ "environment": {
+  "engine": "klayout",
+  "engine_version": "0.30.13",
+  "layout_sha256": "decb8557b2e76063788e5d6ab962d01f8c2c273ff72f22826a282f73535f0bf3",
+  "netgen_binary": null,
+  "reference_sha256": "55d444e58f8cacfc063695a84ded5f9f4b77d39ee1b6543984bf1803cdb2d80e"
+ },
+ "error_count": 0,
+ "flow": {
+  "claim": "smoke register runs through synthesis, place-and-route, DRC, gate-level LVS and the supply ERC read on gf180mcu via klt; not the CPU, the ISA, any spec content, or the block's target library, site or corner",
+  "elapsed_s": 1.64,
+  "engine_versions": {
+   "openroad": "OpenROAD 26Q3-1510-g6cb3f2b704",
+   "yosys": "Yosys 0.67+post (git sha1 b8e7da6f40ae8f552c116bf6c359b07c6533e159, Release, GNU /usr/bin/c++ 13.3.0)"
+  },
+  "gate": "gate2_lvs",
+  "gates": {
+   "gate2_lvs": true,
+   "power_connectivity": "match",
+   "status": "match"
+  },
+  "generated_at": "2026-11-22T23:33:17+00:00",
+  "klt_command": [
+   "klt",
+   "lvs",
+   "flow/request-lvs-smoke.json",
+   "--format",
+   "json"
+  ],
+  "klt_exit": 0,
+  "klt_version": "0.9.2",
+  "reasons": [],
+  "request": "flow/request-lvs-smoke.json",
+  "request_overrides": {},
+  "request_sha256": "9dd2957f88ce59b342d2cac0db63343dd943132a10b24d68483b3abfcad28b5c",
+  "rtl_sha256": {
+   "rtl/smoke_reg.v": "b5787d009eeb2a3a9cc9eeb6449dcc21577cd00c5288e43934926856ea5b7099"
+  },
+  "step": "lvs",
+  "verdict": "PASS"
+ },
+ "hints_applied": null,
+ "mismatch_count": 5,
+ "mismatches": [
+  {
+   "category": "topology",
+   "circuit": null,
+   "description": "device class has no counterpart on the other side, but no devices of this class were extracted either -- not a real topology mismatch: 'nfet'",
+   "details": null,
+   "device": {
+    "class": "nfet",
+    "layout": null,
+    "reference": null
+   },
+   "instance": null,
+   "net": null,
+   "property": null,
+   "severity": "warning",
+   "side": "layout",
+   "subcircuit": null
+  },
+  {
+   "category": "topology",
+   "circuit": null,
+   "description": "device class has no counterpart on the other side, but no devices of this class were extracted either -- not a real topology mismatch: 'pfet'",
+   "details": null,
+   "device": {
+    "class": "pfet",
+    "layout": null,
+    "reference": null
+   },
+   "instance": null,
+   "net": null,
+   "property": null,
+   "severity": "warning",
+   "side": "layout",
+   "subcircuit": null
+  },
+  {
+   "category": "topology",
+   "circuit": null,
+   "description": "device class has no counterpart on the other side, but no devices of this class were extracted either -- not a real topology mismatch: 'bjt'",
+   "details": null,
+   "device": {
+    "class": "bjt",
+    "layout": null,
+    "reference": null
+   },
+   "instance": null,
+   "net": null,
+   "property": null,
+   "severity": "warning",
+   "side": "layout",
+   "subcircuit": null
+  },
+  {
+   "category": "topology.power_only_pruned",
+   "circuit": null,
+   "description": "removed layout-side circuit(s) whose every declared pin is a power/ground pin of the reference library (a pin the library declares but the gate-level-Verilog reference never carries), and every instance of them, before comparing -- 9 circuit(s): gf180mcu_fd_sc_mcu9t5v0__endcap, gf180mcu_fd_sc_mcu9t5v0__fill_1, gf180mcu_fd_sc_mcu9t5v0__fill_16, gf180mcu_fd_sc_mcu9t5v0__fill_2, gf180mcu_fd_sc_mcu9t5v0__fill_32, gf180mcu_fd_sc_mcu9t5v0__fill_4, gf180mcu_fd_sc_mcu9t5v0__fill_64, gf180mcu_fd_sc_mcu9t5v0__fill_8, gf180mcu_fd_sc_mcu9t5v0__filltie (see docs/cli/lvs.md, \"topology.power_only_pruned\")",
+   "details": null,
+   "device": null,
+   "instance": null,
+   "net": null,
+   "property": null,
+   "severity": "warning",
+   "side": "layout",
+   "subcircuit": null
+  },
+  {
+   "category": "topology.top_level_pins_anchored",
+   "circuit": null,
+   "description": "4 top-level pin name(s) declared on both sides were anchored by name before comparing (options.anchor_top_level_pins): each one's layout net is asserted to match the reference net of the same-named pin, which the comparer's own topology-only net pairing does not otherwise require. Without it, two boundary nets with identical topology (e.g. two bits of a black-box macro's bus) are interchangeable and a swap between them compares clean -- see docs/cli/lvs.md, \"Top-level pin anchoring\"",
+   "details": {
+    "layout_only_pin_count": 2,
+    "layout_only_pins": [
+     "VDD",
+     "VSS"
+    ],
+    "layout_only_pins_truncated": false,
+    "pin_count": 4,
+    "pins": [
+     "CLK",
+     "D",
+     "Q",
+     "RST_N"
+    ],
+    "pins_truncated": false
+   },
+   "device": null,
+   "instance": null,
+   "net": null,
+   "property": null,
+   "severity": "warning",
+   "side": "both",
+   "subcircuit": null
+  }
+ ],
+ "net_correspondence": [
+  {
+   "heuristic": true,
+   "layout": "VDD",
+   "pin": true,
+   "reference": null
+  },
+  {
+   "heuristic": true,
+   "layout": "VDD",
+   "pin": true,
+   "reference": null
+  },
+  {
+   "heuristic": true,
+   "layout": "VSS",
+   "pin": true,
+   "reference": null
+  },
+  {
+   "heuristic": true,
+   "layout": "VSS",
+   "pin": true,
+   "reference": null
+  },
+  {
+   "heuristic": false,
+   "layout": "CLK",
+   "pin": true,
+   "reference": "CLK"
+  },
+  {
+   "heuristic": false,
+   "layout": "clk",
+   "pin": true,
+   "reference": "CLK"
+  },
+  {
+   "heuristic": false,
+   "layout": "D",
+   "pin": true,
+   "reference": "D"
+  },
+  {
+   "heuristic": false,
+   "layout": "d",
+   "pin": true,
+   "reference": "D"
+  },
+  {
+   "heuristic": false,
+   "layout": "Q",
+   "pin": true,
+   "reference": "Q"
+  },
+  {
+   "heuristic": false,
+   "layout": "q",
+   "pin": true,
+   "reference": "Q"
+  },
+  {
+   "heuristic": false,
+   "layout": "RN",
+   "pin": true,
+   "reference": "RN"
+  },
+  {
+   "heuristic": false,
+   "layout": "rst_n",
+   "pin": true,
+   "reference": "RST_N"
+  }
+ ],
+ "options": {
+  "anchor_top_level_pins": null,
+  "combine_devices": false,
+  "combine_devices_max_attempts": 5,
+  "combine_devices_per_circuit": null,
+  "compare_mos_flavour": false,
+  "compare_parameters": null,
+  "finfet_bulk": null,
+  "flatten_layout": false,
+  "flatten_reference": false,
+  "ignore_mos_bulk": false,
+  "netgen_setup": null,
+  "parameter_tolerance": null,
+  "power_connectivity": true,
+  "strict_top_level_pin_count": false,
+  "supply_nets": [
+   "GND",
+   "VCC",
+   "VDD",
+   "VGND",
+   "VPWR",
+   "VSS"
+  ]
+ },
+ "parameter_tolerance": null,
+ "power_connectivity": {
+  "excluded_pins": [],
+  "expected_nets": null,
+  "finding_count": 0,
+  "findings": [],
+  "instance_count": 266,
+  "power_pins": [
+   "VDD",
+   "VSS"
+  ],
+  "power_pins_derivation": {
+   "corroborated": false,
+   "master_count": 1,
+   "masters": [
+    "GF180MCU_FD_SC_MCU9T5V0__DFFRNQ_1"
+   ],
+   "reason": "the reference instantiates a single standard-cell master (GF180MCU_FD_SC_MCU9T5V0__DFFRNQ_1), so no second master can corroborate which of its declared-but-unconnected pins are supplies -- a signal pin left dangling on that master is indistinguishable here from a power/ground pin (see docs/cli/lvs.md, \"power_pins_derivation\")",
+   "rule": "declared-by-every-instantiated-master"
+  },
+  "reason": null,
+  "status": "match",
+  "unchecked_expected_pins": []
+ },
+ "provenance": {
+  "deck": {
+   "content_hash": "sha256:c3f2cce49000857a3a71cb65203aabf0eb27cd0ee6b1c60e29792355c455c4b1",
+   "name": "gf180mcu",
+   "options": {
+    "metal_top": "9K",
+    "mim_cap": "cap_mim_2f0_m4m5_noshield",
+    "poly_res": "1k"
+   },
+   "options_explicit": {
+    "metal_top": false,
+    "mim_cap": false,
+    "poly_res": false
+   },
+   "options_hash": "sha256:6a7dc7660a470994263c5ca8ace6d8ac8c605d77e6876a9c5490949de6e7cb05",
+   "released": true
+  },
+  "input": {
+   "content_hash": "sha256:decb8557b2e76063788e5d6ab962d01f8c2c273ff72f22826a282f73535f0bf3",
+   "role": "layout"
+  },
+  "klayout_version": "0.30.13",
+  "klayout_version_mismatch": true,
+  "klt_git_commit": "046ba74652fc096bd97071fc3237f7159dd40183",
+  "klt_reinstall_spec": "klayout-tools==0.9.2",
+  "klt_version": "0.9.2",
+  "pdk": {
+   "ambiguous_sources": [
+    "search root: ~/.volare"
+   ],
+   "name": "gf180mcuC",
+   "source": "search root: ~/.ciel",
+   "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
+  }
+ },
+ "reference_conversion": {
+  "form": "gate-level-verilog",
+  "library": "gf180mcu_fd_sc_mcu9t5v0",
+  "pdk": "gf180mcuC",
+  "pdk_root": null,
+  "pin_order_files": null
+ },
+ "reference_top": "SMOKE_REG",
+ "schema_version": 3,
+ "status": "match",
+ "top": "smoke_reg"
+}
