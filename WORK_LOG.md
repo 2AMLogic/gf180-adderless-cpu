@@ -8,6 +8,10 @@ Entries are grouped by date, newest first. Each entry references the merged PR o
 
 ## Archives
 
+### 2026-11-22
+
+- **PR #19**: chore(loom): resync installed Loom to v0.20.8 (clears the dispatch hold)
+
 ### 2026-11-19
 
 - **Issue #15** (closed): ci: 'Pin-consistency check (fast lane)' runs after the iverilog build, not in the fast lane
