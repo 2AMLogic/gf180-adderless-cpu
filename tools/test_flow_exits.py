@@ -267,6 +267,44 @@ class FlowExitCodeTests(unittest.TestCase):
         self.assertEqual(p.returncode, 1, p.stdout + p.stderr)
         self.assertIn("/flow/request_overrides", p.stdout)
 
+    def test_override_keeps_every_path_field_a_resolving_string(self):
+        """The fake klt never reads its request, so assert on the effective
+        requests directly: each path field keeps its committed JSON type and
+        resolves (from flow/build/effective/) to the committed target."""
+        p = self.run_flow("clean", "--write", "--corner", "ff_125C_1v98",
+                          "--site", "gf180mcu_fd_sc_mcu9t5v0__site",
+                          "--cell-library", "gf180mcu_fd_sc_mcu9t5v0")
+        self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+        flow = self.tmp / "flow"
+        eff_dir = flow / "build" / "effective"
+        paths = {"synth": [("outputs", "dir")], "par": [("netlist",),
+                 ("outputs", "dir")], "drc": [("file",)],
+                 "lvs": [("layout", "file"), ("layout", "def_pins"),
+                         ("reference", "netlist")]}
+
+        def dig(doc, keys):
+            for k in keys:
+                doc = doc[k]
+            return doc
+
+        for step, fields in paths.items():
+            name = f"request-{step}-smoke.json"
+            committed = json.loads((flow / name).read_text(encoding="utf-8"))
+            eff = json.loads((eff_dir / name).read_text(encoding="utf-8"))
+            for keys in fields:
+                want, got = dig(committed, keys), dig(eff, keys)
+                self.assertIsInstance(got, str, f"{step} {keys}: {got!r}")
+                self.assertEqual(
+                    os.path.normpath(eff_dir / got),
+                    os.path.normpath(flow / want), f"{step} {keys}")
+
+    def test_missing_pin_module_is_blocked_not_fail(self):
+        (self.tmp / "layout" / "toolchain_pin.py").unlink()
+        p = self.run_flow()
+        self.assertEqual(p.returncode, 2, p.stdout + p.stderr)
+        self.assertIn("BLOCKED: toolchain pin", p.stdout)
+        self.assertNotIn("Traceback", p.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

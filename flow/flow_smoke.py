@@ -118,8 +118,8 @@ BY_NAME = {s.name: s for s in STEPS}
 
 REQUEST_PATHS = {
     "synthesize": (["sources"], (["outputs", "dir"],)),
-    "place-and-route": (["netlist"], (["outputs", "dir"],)),
-    "drc": (["file"], ()),
+    "place-and-route": ((), (["netlist"], ["outputs", "dir"])),
+    "drc": ((), (["file"],)),
     "lvs": ((), (["layout", "file"], ["layout", "def_pins"],
                  ["reference", "netlist"])),
     "erc": ((), ()),
@@ -310,6 +310,10 @@ def klt_command(step: Step, klt: Path, request: str, variant: str) -> list:
     """The argv klt is run with, relative to the repo root (klt's cwd)."""
     cmd = [str(klt), step.command]
     if step.command == "erc":
+        # The GDS path is derived from the *committed* par request's
+        # outputs.dir; effective_request() rebases the effective par
+        # request's outputs.dir to the same flow/build/par/ target.  Keep
+        # the two in step (test_override_is_recorded_and_rebased checks it).
         par = par_request()
         cmd.append(str(FLOW_REL / par["outputs"]["dir"]
                        / f"{par['hdl_toplevel']}.gds"))
@@ -543,6 +547,12 @@ def main() -> int:
 
     try:
         pin = load_pin_module()
+    except (OSError, ImportError, SyntaxError) as exc:
+        # A missing/broken pin module is a harness breakage, not a verdict.
+        print(f"BLOCKED: toolchain pin: cannot load layout/toolchain_pin.py: "
+              f"{exc}")
+        return EXIT["BLOCKED"]
+    try:
         problems = pin.check_pin(klt, pin.load_pin(str(REPO)),
                                  needed=[s.command for s in STEPS])
     except pin.PinError as exc:
