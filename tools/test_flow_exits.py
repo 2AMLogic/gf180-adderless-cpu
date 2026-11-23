@@ -78,6 +78,7 @@ LVS_CASES = {
     "lvs_power_unchecked": ("match", {"status": "unchecked",
                                       "reason": POWER_UNCHECKED_REASON}),
     "lvs_power_unchecked_no_reason": ("match", {"status": "unchecked"}),
+    "lvs_power_mismatch": ("match", {"status": "mismatch"}),
     "lvs_mismatch_power_unchecked": (
         "mismatch", {"status": "unchecked", "reason": POWER_UNCHECKED_REASON}),
 }
@@ -245,6 +246,11 @@ class FlowExitCodeTests(unittest.TestCase):
         rec = self.evidence("lvs")
         self.assertEqual(rec["flow"]["verdict"], "BLOCKED")
         self.assertNotIn(None, rec["flow"]["reasons"])
+
+    def test_power_mismatch_is_fail(self):
+        p = self.run_flow("lvs_power_mismatch", "--write")
+        self.assertEqual(p.returncode, 1, p.stdout + p.stderr)
+        self.assertEqual(self.evidence("lvs")["flow"]["verdict"], "FAIL")
 
     def test_mismatch_with_unchecked_power_is_fail(self):
         p = self.run_flow("lvs_mismatch_power_unchecked", "--write")
