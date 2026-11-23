@@ -1,0 +1,8 @@
+{
+  "schema": "klt.drc.request/1",
+  "file": "build/par/smoke_reg.gds",
+  "deck": "gf180mcu",
+  "engine": "curated",
+  "top": "smoke_reg",
+  "pdk": "gf180mcuC"
+}

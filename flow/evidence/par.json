@@ -1,0 +1,886 @@
+{
+ "antenna_violation_count": 0,
+ "applied": {
+  "placement_density": 0.6,
+  "route_allow_congestion": false,
+  "route_congestion_iterations": null,
+  "signal_layers": "Metal2-Metal5"
+ },
+ "clock_skew_ns": 0,
+ "congestion": {
+  "completeness": {
+   "partially_routed_net_count": null,
+   "signal_net_count": 3,
+   "unrouted_net_count": 0
+  },
+  "detailed_route": {
+   "converged": true,
+   "drc_violations_per_iteration": [
+    0
+   ],
+   "first_iteration_drc_violation_count": 0,
+   "iteration_count": 1
+  },
+  "global_route": {
+   "max_gcell_usage_pct": null,
+   "max_horizontal_overflow": 0,
+   "max_layer_usage_pct": 0.19,
+   "max_vertical_overflow": 0,
+   "overflow_per_layer": {
+    "Metal1": {
+     "demand": 0,
+     "max_horizontal_overflow": 0,
+     "max_vertical_overflow": 0,
+     "resource": 0,
+     "total_overflow": 0,
+     "usage_pct": 0.0
+    },
+    "Metal2": {
+     "demand": 2,
+     "max_horizontal_overflow": 0,
+     "max_vertical_overflow": 0,
+     "resource": 3424,
+     "total_overflow": 0,
+     "usage_pct": 0.06
+    },
+    "Metal3": {
+     "demand": 4,
+     "max_horizontal_overflow": 0,
+     "max_vertical_overflow": 0,
+     "resource": 3654,
+     "total_overflow": 0,
+     "usage_pct": 0.11
+    },
+    "Metal4": {
+     "demand": 6,
+     "max_horizontal_overflow": 0,
+     "max_vertical_overflow": 0,
+     "resource": 3114,
+     "total_overflow": 0,
+     "usage_pct": 0.19
+    },
+    "Metal5": {
+     "demand": 0,
+     "max_horizontal_overflow": 0,
+     "max_vertical_overflow": 0,
+     "resource": 2190,
+     "total_overflow": 0,
+     "usage_pct": 0.0
+    }
+   },
+   "overflow_regions": null,
+   "routed_net_count": 4,
+   "total_overflow": 0,
+   "usage_pct": 0.1
+  },
+  "null_reasons": {
+   "completeness.partially_routed_net_count": "OpenROAD exposes no per-net connectivity check; only nets with no routed wire at all are counted",
+   "global_route.max_gcell_usage_pct": "OpenROAD's global router reports usage per routing layer, not per GCell",
+   "global_route.overflow_regions": "no `global_route -congestion_report_file` report was produced or it held no congestion violations"
+  },
+  "placement": {
+   "final_weighted_congestion": 0.5556,
+   "overflowed_tile_count": 0,
+   "total_routing_overflow": 0.0
+  }
+ },
+ "core_area_um2": 17538.4,
+ "corners": [
+  {
+   "hold_slack_ns": 1e+39,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "ff_125C_1v98",
+   "setup_slack_ns": 1e+39,
+   "timing_status": "unconstrained",
+   "total_negative_hold_slack_ns": 0,
+   "total_negative_setup_slack_ns": 0
+  },
+  {
+   "hold_slack_ns": 1e+39,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "ff_125C_3v60",
+   "setup_slack_ns": 1e+39,
+   "timing_status": "unconstrained",
+   "total_negative_hold_slack_ns": 0,
+   "total_negative_setup_slack_ns": 0
+  },
+  {
+   "hold_slack_ns": 1e+39,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "ff_125C_5v50",
+   "setup_slack_ns": 1e+39,
+   "timing_status": "unconstrained",
+   "total_negative_hold_slack_ns": 0,
+   "total_negative_setup_slack_ns": 0
+  },
+  {
+   "hold_slack_ns": 1e+39,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "ff_n40C_1v98",
+   "setup_slack_ns": 1e+39,
+   "timing_status": "unconstrained",
+   "total_negative_hold_slack_ns": 0,
+   "total_negative_setup_slack_ns": 0
+  },
+  {
+   "hold_slack_ns": 1e+39,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "ff_n40C_3v60",
+   "setup_slack_ns": 1e+39,
+   "timing_status": "unconstrained",
+   "total_negative_hold_slack_ns": 0,
+   "total_negative_setup_slack_ns": 0
+  },
+  {
+   "hold_slack_ns": 1e+39,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "ff_n40C_5v50",
+   "setup_slack_ns": 1e+39,
+   "timing_status": "unconstrained",
+   "total_negative_hold_slack_ns": 0,
+   "total_negative_setup_slack_ns": 0
+  },
+  {
+   "hold_slack_ns": 1e+39,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "ss_125C_1v62",
+   "setup_slack_ns": 1e+39,
+   "timing_status": "unconstrained",
+   "total_negative_hold_slack_ns": 0,
+   "total_negative_setup_slack_ns": 0
+  },
+  {
+   "hold_slack_ns": 1e+39,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "ss_125C_3v00",
+   "setup_slack_ns": 1e+39,
+   "timing_status": "unconstrained",
+   "total_negative_hold_slack_ns": 0,
+   "total_negative_setup_slack_ns": 0
+  },
+  {
+   "hold_slack_ns": 1e+39,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "ss_125C_4v50",
+   "setup_slack_ns": 1e+39,
+   "timing_status": "unconstrained",
+   "total_negative_hold_slack_ns": 0,
+   "total_negative_setup_slack_ns": 0
+  },
+  {
+   "hold_slack_ns": 1e+39,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "ss_n40C_1v62",
+   "setup_slack_ns": 1e+39,
+   "timing_status": "unconstrained",
+   "total_negative_hold_slack_ns": 0,
+   "total_negative_setup_slack_ns": 0
+  },
+  {
+   "hold_slack_ns": 1e+39,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "ss_n40C_3v00",
+   "setup_slack_ns": 1e+39,
+   "timing_status": "unconstrained",
+   "total_negative_hold_slack_ns": 0,
+   "total_negative_setup_slack_ns": 0
+  },
+  {
+   "hold_slack_ns": 1e+39,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "ss_n40C_4v50",
+   "setup_slack_ns": 1e+39,
+   "timing_status": "unconstrained",
+   "total_negative_hold_slack_ns": 0,
+   "total_negative_setup_slack_ns": 0
+  },
+  {
+   "hold_slack_ns": 1e+39,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "tt_025C_1v80",
+   "setup_slack_ns": 1e+39,
+   "timing_status": "unconstrained",
+   "total_negative_hold_slack_ns": 0,
+   "total_negative_setup_slack_ns": 0
+  },
+  {
+   "hold_slack_ns": 1e+39,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "tt_025C_3v30",
+   "setup_slack_ns": 1e+39,
+   "timing_status": "unconstrained",
+   "total_negative_hold_slack_ns": 0,
+   "total_negative_setup_slack_ns": 0
+  },
+  {
+   "hold_slack_ns": 1e+39,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "tt_025C_5v00",
+   "setup_slack_ns": 1e+39,
+   "timing_status": "unconstrained",
+   "total_negative_hold_slack_ns": 0,
+   "total_negative_setup_slack_ns": 0
+  }
+ ],
+ "coverage": {
+  "density_compliance": {
+   "evaluated": false,
+   "reason": "metal density rules are not evaluated by place-and-route; a zero route_drc_violation_count does not imply density compliance",
+   "status": "unsupported"
+  },
+  "metal_density_fill": {
+   "inserted": false,
+   "reason": "no metal density fill is inserted at any stage; standard-cell gap fillers are not metal fill",
+   "status": "unsupported"
+  }
+ },
+ "def_net_names": {
+  "single_pin_markers": 0,
+  "unresolved_single_pin_nets": []
+ },
+ "die_area_um2": 20277.8,
+ "engine": "openroad",
+ "engine_version": "26Q3-1510-g6cb3f2b704",
+ "estimated_power_mw": 0.0036,
+ "flow": {
+  "claim": "smoke register runs through synthesis, place-and-route, DRC, gate-level LVS and the supply ERC read on gf180mcu via klt; not the CPU, the ISA, any spec content, or the block's target library, site or corner",
+  "elapsed_s": 44.779,
+  "engine_versions": {
+   "openroad": "OpenROAD 26Q3-1510-g6cb3f2b704",
+   "yosys": "Yosys 0.67+post (git sha1 b8e7da6f40ae8f552c116bf6c359b07c6533e159, Release, GNU /usr/bin/c++ 13.3.0)"
+  },
+  "gate": "gate1_pdn",
+  "gates": {
+   "gate1_pdn": true,
+   "pdn": true,
+   "tapcell_master": "gf180mcu_fd_sc_mcu9t5v0__filltie"
+  },
+  "generated_at": "2026-11-22T23:33:14+00:00",
+  "klt_command": [
+   "klt",
+   "place-and-route",
+   "flow/request-par-smoke.json",
+   "--pdk",
+   "gf180mcuC",
+   "--format",
+   "json"
+  ],
+  "klt_exit": 0,
+  "klt_version": "0.9.2",
+  "reasons": [],
+  "request": "flow/request-par-smoke.json",
+  "request_overrides": {},
+  "request_sha256": "436e2b0f08ba4cc0f8f52556e813f8ca9285522556e6324f37e9855f3e1a50bc",
+  "rtl_sha256": {
+   "rtl/smoke_reg.v": "b5787d009eeb2a3a9cc9eeb6449dcc21577cd00c5288e43934926856ea5b7099"
+  },
+  "step": "par",
+  "verdict": "PASS"
+ },
+ "fmax_mhz": null,
+ "gds_dbu_um": 0.0005,
+ "hdl_toplevel": "smoke_reg",
+ "hold_violation_count": 0,
+ "instance_groups": [],
+ "interconnect_corner": "nom",
+ "layer_map": {
+  "resolution": "family"
+ },
+ "macros": [],
+ "max_capacitance_violation_count": 0,
+ "max_capacitance_violation_count_vs_library": 0,
+ "max_transition_violation_count": 0,
+ "max_transition_violation_count_vs_library": 0,
+ "min_area_repair": {
+  "patches": 0,
+  "reason": "the curated deck for PDK variant 'gf180mcuC' carries no plain minimum-area rule on any routed-net layer",
+  "remaining": 0,
+  "repaired": 0,
+  "rules": [],
+  "status": "skipped",
+  "unrepaired": []
+ },
+ "nominal_hold_slack_ns": 1e+39,
+ "pin_abutment": [],
+ "pins": [
+  {
+   "edge": "north",
+   "layer": "Metal5",
+   "name": "VDD",
+   "x_um": 71.4,
+   "y_um": 94.64
+  },
+  {
+   "edge": "south",
+   "layer": "Metal5",
+   "name": "VSS",
+   "x_um": 71.4,
+   "y_um": 49.84
+  },
+  {
+   "edge": "south",
+   "layer": "Metal4",
+   "name": "clk",
+   "x_um": 73.36,
+   "y_um": 0.26
+  },
+  {
+   "edge": "south",
+   "layer": "Metal4",
+   "name": "d",
+   "x_um": 71.12,
+   "y_um": 0.26
+  },
+  {
+   "edge": "south",
+   "layer": "Metal4",
+   "name": "q",
+   "x_um": 70.0,
+   "y_um": 0.26
+  },
+  {
+   "edge": "south",
+   "layer": "Metal4",
+   "name": "rst_n",
+   "x_um": 72.24,
+   "y_um": 0.26
+  }
+ ],
+ "power": {
+  "connects": [
+   {
+    "layers": [
+     "Metal1",
+     "Metal4"
+    ],
+    "max_columns": 5,
+    "ongrid": [
+     "Metal2",
+     "Metal3",
+     "Metal4"
+    ],
+    "split_cuts": {
+     "layer": "Metal3",
+     "width_um": 0.128
+    }
+   },
+   {
+    "layers": [
+     "Metal4",
+     "Metal5"
+    ],
+    "max_columns": null,
+    "ongrid": null,
+    "split_cuts": null
+   }
+  ],
+  "connects_overridden": false,
+  "endcap_master": "gf180mcu_fd_sc_mcu9t5v0__endcap",
+  "filler_masters": [
+   "gf180mcu_fd_sc_mcu9t5v0__fill_64",
+   "gf180mcu_fd_sc_mcu9t5v0__fill_32",
+   "gf180mcu_fd_sc_mcu9t5v0__fill_16",
+   "gf180mcu_fd_sc_mcu9t5v0__fill_8",
+   "gf180mcu_fd_sc_mcu9t5v0__fill_4",
+   "gf180mcu_fd_sc_mcu9t5v0__fill_2",
+   "gf180mcu_fd_sc_mcu9t5v0__fill_1"
+  ],
+  "global_connect": true,
+  "ground_net": "VSS",
+  "pdn": true,
+  "placed": {
+   "components": 266,
+   "endcaps": 52,
+   "evidence": "def",
+   "fillers": 199,
+   "missing": [],
+   "special_nets": [
+    {
+     "followpin_segments": 13,
+     "name": "VDD",
+     "other_segments": 39,
+     "stripe_layers": [
+      "Metal5",
+      "Metal4",
+      "Metal3",
+      "Metal2",
+      "Metal1"
+     ],
+     "stripe_segments": 2776,
+     "use": "POWER",
+     "vias": 2772
+    },
+    {
+     "followpin_segments": 14,
+     "name": "VSS",
+     "other_segments": 42,
+     "stripe_layers": [
+      "Metal5",
+      "Metal4",
+      "Metal3",
+      "Metal2",
+      "Metal1"
+     ],
+     "stripe_segments": 2989,
+     "use": "GROUND",
+     "vias": 2985
+    }
+   ],
+   "status": "complete",
+   "tapcells": 14,
+   "unavailable_reason": null
+  },
+  "power_net": "VDD",
+  "preset": null,
+  "row_rail": {
+   "emitted": false,
+   "filler_masters": [],
+   "ground_net": null,
+   "layer": null,
+   "power_net": null
+  },
+  "straps": [
+   {
+    "layer": "Metal1",
+    "spacing_um": null
+   },
+   {
+    "layer": "Metal4",
+    "spacing_um": 0.56
+   },
+   {
+    "layer": "Metal5",
+    "spacing_um": null
+   }
+  ],
+  "tapcell_distance_um": 100,
+  "tapcell_master": "gf180mcu_fd_sc_mcu9t5v0__filltie",
+  "tapless": false
+ },
+ "power_basis": {
+  "activity": null,
+  "activity_source": "engine_default",
+  "duty": null,
+  "parasitics": "estimate_only"
+ },
+ "provenance": {
+  "deck": {
+   "content_hash": "sha256:c0b6946a2d48a4604c687a29d3c8b1e05b3da5a42866b21592eaacfeae6e9ca7",
+   "name": "gf180mcu_fd_sc_mcu9t5v0__tt_025C_1v80",
+   "path": {
+    "path": null,
+    "scope": "external"
+   },
+   "released": false
+  },
+  "input": {
+   "content_hash": "sha256:e4d5d6d8659dbecc17e0d6bd9b1f10fd735bb363150eed177b0ad8d3737c4ad3",
+   "role": "netlist"
+  },
+  "klayout_version": "0.30.13",
+  "klt_git_commit": "046ba74652fc096bd97071fc3237f7159dd40183",
+  "klt_reinstall_spec": "klayout-tools==0.9.2",
+  "klt_version": "0.9.2",
+  "pdk": {
+   "ambiguous_sources": [
+    "search root: ~/.volare"
+   ],
+   "name": "gf180mcuC",
+   "source": "search root: ~/.ciel",
+   "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
+  }
+ },
+ "route_drc_violation_count": 0,
+ "schema_version": 1,
+ "seed": 1,
+ "setup_violation_count": 0,
+ "spef_sta": null,
+ "stage_reached": "route",
+ "stages": [
+  {
+   "core_area_um2": 17538.4,
+   "die_area_um2": 20277.8,
+   "name": "floorplan",
+   "timing_status": "unconstrained",
+   "total_negative_slack_ns": 0,
+   "utilization_pct": 2.6392,
+   "worst_slack_ns": 1e+39
+  },
+  {
+   "core_area_um2": 17538.4,
+   "die_area_um2": 20277.8,
+   "estimated_power_mw": 0.0036,
+   "fmax_mhz": null,
+   "hold_violation_count": 0,
+   "name": "place",
+   "nominal_hold_slack_ns": 1e+39,
+   "setup_violation_count": 0,
+   "timing_status": "unconstrained",
+   "total_negative_slack_ns": 0,
+   "utilization_pct": 2.6392,
+   "wirelength_um": 96.888,
+   "worst_slack_ns": 1e+39
+  },
+  {
+   "clock_skew_ns": 0,
+   "core_area_um2": 17538.4,
+   "die_area_um2": 20277.8,
+   "estimated_power_mw": 0.0036,
+   "fmax_mhz": null,
+   "hold_violation_count": 0,
+   "name": "cts",
+   "nominal_hold_slack_ns": 1e+39,
+   "setup_violation_count": 0,
+   "timing_status": "unconstrained",
+   "total_negative_slack_ns": 0,
+   "utilization_pct": 2.6392,
+   "wirelength_um": 96.888,
+   "worst_slack_ns": 1e+39
+  },
+  {
+   "antenna_violation_count": 0,
+   "clock_skew_ns": 0,
+   "congestion": {
+    "completeness": {
+     "partially_routed_net_count": null,
+     "signal_net_count": 3,
+     "unrouted_net_count": 0
+    },
+    "detailed_route": {
+     "converged": true,
+     "drc_violations_per_iteration": [
+      0
+     ],
+     "first_iteration_drc_violation_count": 0,
+     "iteration_count": 1
+    },
+    "global_route": {
+     "max_gcell_usage_pct": null,
+     "max_horizontal_overflow": 0,
+     "max_layer_usage_pct": 0.19,
+     "max_vertical_overflow": 0,
+     "overflow_per_layer": {
+      "Metal1": {
+       "demand": 0,
+       "max_horizontal_overflow": 0,
+       "max_vertical_overflow": 0,
+       "resource": 0,
+       "total_overflow": 0,
+       "usage_pct": 0.0
+      },
+      "Metal2": {
+       "demand": 2,
+       "max_horizontal_overflow": 0,
+       "max_vertical_overflow": 0,
+       "resource": 3424,
+       "total_overflow": 0,
+       "usage_pct": 0.06
+      },
+      "Metal3": {
+       "demand": 4,
+       "max_horizontal_overflow": 0,
+       "max_vertical_overflow": 0,
+       "resource": 3654,
+       "total_overflow": 0,
+       "usage_pct": 0.11
+      },
+      "Metal4": {
+       "demand": 6,
+       "max_horizontal_overflow": 0,
+       "max_vertical_overflow": 0,
+       "resource": 3114,
+       "total_overflow": 0,
+       "usage_pct": 0.19
+      },
+      "Metal5": {
+       "demand": 0,
+       "max_horizontal_overflow": 0,
+       "max_vertical_overflow": 0,
+       "resource": 2190,
+       "total_overflow": 0,
+       "usage_pct": 0.0
+      }
+     },
+     "overflow_regions": null,
+     "routed_net_count": 4,
+     "total_overflow": 0,
+     "usage_pct": 0.1
+    },
+    "null_reasons": {
+     "completeness.partially_routed_net_count": "OpenROAD exposes no per-net connectivity check; only nets with no routed wire at all are counted",
+     "global_route.max_gcell_usage_pct": "OpenROAD's global router reports usage per routing layer, not per GCell",
+     "global_route.overflow_regions": "no `global_route -congestion_report_file` report was produced or it held no congestion violations"
+    },
+    "placement": {
+     "final_weighted_congestion": 0.5556,
+     "overflowed_tile_count": 0,
+     "total_routing_overflow": 0.0
+    }
+   },
+   "core_area_um2": 17538.4,
+   "corners": [
+    {
+     "hold_slack_ns": 1e+39,
+     "max_capacitance_violation_count": 0,
+     "max_capacitance_violation_count_vs_library": 0,
+     "max_transition_violation_count": 0,
+     "max_transition_violation_count_vs_library": 0,
+     "name": "ff_125C_1v98",
+     "setup_slack_ns": 1e+39,
+     "timing_status": "unconstrained",
+     "total_negative_hold_slack_ns": 0,
+     "total_negative_setup_slack_ns": 0
+    },
+    {
+     "hold_slack_ns": 1e+39,
+     "max_capacitance_violation_count": 0,
+     "max_capacitance_violation_count_vs_library": 0,
+     "max_transition_violation_count": 0,
+     "max_transition_violation_count_vs_library": 0,
+     "name": "ff_125C_3v60",
+     "setup_slack_ns": 1e+39,
+     "timing_status": "unconstrained",
+     "total_negative_hold_slack_ns": 0,
+     "total_negative_setup_slack_ns": 0
+    },
+    {
+     "hold_slack_ns": 1e+39,
+     "max_capacitance_violation_count": 0,
+     "max_capacitance_violation_count_vs_library": 0,
+     "max_transition_violation_count": 0,
+     "max_transition_violation_count_vs_library": 0,
+     "name": "ff_125C_5v50",
+     "setup_slack_ns": 1e+39,
+     "timing_status": "unconstrained",
+     "total_negative_hold_slack_ns": 0,
+     "total_negative_setup_slack_ns": 0
+    },
+    {
+     "hold_slack_ns": 1e+39,
+     "max_capacitance_violation_count": 0,
+     "max_capacitance_violation_count_vs_library": 0,
+     "max_transition_violation_count": 0,
+     "max_transition_violation_count_vs_library": 0,
+     "name": "ff_n40C_1v98",
+     "setup_slack_ns": 1e+39,
+     "timing_status": "unconstrained",
+     "total_negative_hold_slack_ns": 0,
+     "total_negative_setup_slack_ns": 0
+    },
+    {
+     "hold_slack_ns": 1e+39,
+     "max_capacitance_violation_count": 0,
+     "max_capacitance_violation_count_vs_library": 0,
+     "max_transition_violation_count": 0,
+     "max_transition_violation_count_vs_library": 0,
+     "name": "ff_n40C_3v60",
+     "setup_slack_ns": 1e+39,
+     "timing_status": "unconstrained",
+     "total_negative_hold_slack_ns": 0,
+     "total_negative_setup_slack_ns": 0
+    },
+    {
+     "hold_slack_ns": 1e+39,
+     "max_capacitance_violation_count": 0,
+     "max_capacitance_violation_count_vs_library": 0,
+     "max_transition_violation_count": 0,
+     "max_transition_violation_count_vs_library": 0,
+     "name": "ff_n40C_5v50",
+     "setup_slack_ns": 1e+39,
+     "timing_status": "unconstrained",
+     "total_negative_hold_slack_ns": 0,
+     "total_negative_setup_slack_ns": 0
+    },
+    {
+     "hold_slack_ns": 1e+39,
+     "max_capacitance_violation_count": 0,
+     "max_capacitance_violation_count_vs_library": 0,
+     "max_transition_violation_count": 0,
+     "max_transition_violation_count_vs_library": 0,
+     "name": "ss_125C_1v62",
+     "setup_slack_ns": 1e+39,
+     "timing_status": "unconstrained",
+     "total_negative_hold_slack_ns": 0,
+     "total_negative_setup_slack_ns": 0
+    },
+    {
+     "hold_slack_ns": 1e+39,
+     "max_capacitance_violation_count": 0,
+     "max_capacitance_violation_count_vs_library": 0,
+     "max_transition_violation_count": 0,
+     "max_transition_violation_count_vs_library": 0,
+     "name": "ss_125C_3v00",
+     "setup_slack_ns": 1e+39,
+     "timing_status": "unconstrained",
+     "total_negative_hold_slack_ns": 0,
+     "total_negative_setup_slack_ns": 0
+    },
+    {
+     "hold_slack_ns": 1e+39,
+     "max_capacitance_violation_count": 0,
+     "max_capacitance_violation_count_vs_library": 0,
+     "max_transition_violation_count": 0,
+     "max_transition_violation_count_vs_library": 0,
+     "name": "ss_125C_4v50",
+     "setup_slack_ns": 1e+39,
+     "timing_status": "unconstrained",
+     "total_negative_hold_slack_ns": 0,
+     "total_negative_setup_slack_ns": 0
+    },
+    {
+     "hold_slack_ns": 1e+39,
+     "max_capacitance_violation_count": 0,
+     "max_capacitance_violation_count_vs_library": 0,
+     "max_transition_violation_count": 0,
+     "max_transition_violation_count_vs_library": 0,
+     "name": "ss_n40C_1v62",
+     "setup_slack_ns": 1e+39,
+     "timing_status": "unconstrained",
+     "total_negative_hold_slack_ns": 0,
+     "total_negative_setup_slack_ns": 0
+    },
+    {
+     "hold_slack_ns": 1e+39,
+     "max_capacitance_violation_count": 0,
+     "max_capacitance_violation_count_vs_library": 0,
+     "max_transition_violation_count": 0,
+     "max_transition_violation_count_vs_library": 0,
+     "name": "ss_n40C_3v00",
+     "setup_slack_ns": 1e+39,
+     "timing_status": "unconstrained",
+     "total_negative_hold_slack_ns": 0,
+     "total_negative_setup_slack_ns": 0
+    },
+    {
+     "hold_slack_ns": 1e+39,
+     "max_capacitance_violation_count": 0,
+     "max_capacitance_violation_count_vs_library": 0,
+     "max_transition_violation_count": 0,
+     "max_transition_violation_count_vs_library": 0,
+     "name": "ss_n40C_4v50",
+     "setup_slack_ns": 1e+39,
+     "timing_status": "unconstrained",
+     "total_negative_hold_slack_ns": 0,
+     "total_negative_setup_slack_ns": 0
+    },
+    {
+     "hold_slack_ns": 1e+39,
+     "max_capacitance_violation_count": 0,
+     "max_capacitance_violation_count_vs_library": 0,
+     "max_transition_violation_count": 0,
+     "max_transition_violation_count_vs_library": 0,
+     "name": "tt_025C_1v80",
+     "setup_slack_ns": 1e+39,
+     "timing_status": "unconstrained",
+     "total_negative_hold_slack_ns": 0,
+     "total_negative_setup_slack_ns": 0
+    },
+    {
+     "hold_slack_ns": 1e+39,
+     "max_capacitance_violation_count": 0,
+     "max_capacitance_violation_count_vs_library": 0,
+     "max_transition_violation_count": 0,
+     "max_transition_violation_count_vs_library": 0,
+     "name": "tt_025C_3v30",
+     "setup_slack_ns": 1e+39,
+     "timing_status": "unconstrained",
+     "total_negative_hold_slack_ns": 0,
+     "total_negative_setup_slack_ns": 0
+    },
+    {
+     "hold_slack_ns": 1e+39,
+     "max_capacitance_violation_count": 0,
+     "max_capacitance_violation_count_vs_library": 0,
+     "max_transition_violation_count": 0,
+     "max_transition_violation_count_vs_library": 0,
+     "name": "tt_025C_5v00",
+     "setup_slack_ns": 1e+39,
+     "timing_status": "unconstrained",
+     "total_negative_hold_slack_ns": 0,
+     "total_negative_setup_slack_ns": 0
+    }
+   ],
+   "die_area_um2": 20277.8,
+   "estimated_power_mw": 0.0036,
+   "fmax_mhz": null,
+   "hold_violation_count": 0,
+   "max_capacitance_violation_count": 0,
+   "max_capacitance_violation_count_vs_library": 0,
+   "max_transition_violation_count": 0,
+   "max_transition_violation_count_vs_library": 0,
+   "name": "route",
+   "nominal_hold_slack_ns": 1e+39,
+   "route_drc_violation_count": 0,
+   "setup_violation_count": 0,
+   "timing_status": "unconstrained",
+   "total_negative_slack_ns": 0,
+   "utilization_pct": 2.6392,
+   "wirelength_um": 105,
+   "worst_hold_slack_ns": 1e+39,
+   "worst_setup_slack_ns": 1e+39,
+   "worst_slack_ns": 1e+39
+  }
+ ],
+ "status": "ok",
+ "timing_status": "unconstrained",
+ "total_negative_slack_ns": 0,
+ "utilization_pct": 2.6392,
+ "via_pad_trim": {
+  "cells_touched": 0,
+  "pads_left": 0,
+  "pads_shrunk": 0,
+  "pads_trimmed": 0,
+  "reason": "PDK family of 'gf180mcuC' is not ASAP7; no-op",
+  "status": "skipped"
+ },
+ "warnings": [],
+ "wirelength_um": 105,
+ "worst_hold_slack_ns": 1e+39,
+ "worst_setup_slack_ns": 1e+39,
+ "worst_slack_ns": 1e+39
+}

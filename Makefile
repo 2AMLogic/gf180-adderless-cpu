@@ -1,4 +1,5 @@
-.PHONY: smoke smoke-control harness-tests check-pins clean
+.PHONY: smoke smoke-control harness-tests check-pins flow-smoke \
+	flow-smoke-write flow-tests clean
 
 # Smoke verification harness (issue #2).  Pattern copied from
 # 2AMLogic/gf180-dx7 @ 69f0464147172f3d4a5506fc2a0c555008d3f36e (its FV
@@ -26,10 +27,27 @@ smoke-control: $(FV_VENV)/bin/klt
 harness-tests:
 	python3 verification/test_smoke_control.py
 
+# Implementation-flow smoke (issue #18): synthesis, place-and-route, DRC,
+# gate-level LVS and the supply ERC read on rtl/smoke_reg.v, from the
+# committed klt requests under flow/, through the same pinned venv.  Check
+# mode: re-run and require flow/evidence/ to reproduce.  Needs yosys and
+# openroad on PATH and an installed gf180mcu PDK (flow/README.md says
+# where this runs and why it is not a CI job).
+flow-smoke: $(FV_VENV)/bin/klt
+	python3 flow/flow_smoke.py --venv $(FV_VENV)
+
+flow-smoke-write: $(FV_VENV)/bin/klt
+	python3 flow/flow_smoke.py --venv $(FV_VENV) --write
+
+# Hermetic exit-code contract tests for flow/flow_smoke.py: a fake klt,
+# no engine, PDK or network.
+flow-tests:
+	python3 tools/test_flow_exits.py
+
 # Fast lane: the committed evidence must name the pinned toolchain.
 check-pins:
 	python3 tools/check_pins.py
 
 clean:
-	rm -rf .venv-fv build .klt
+	rm -rf .venv-fv build .klt flow/build flow/.klt
 	find . -name __pycache__ -type d -exec rm -rf {} +
