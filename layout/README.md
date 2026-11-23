@@ -20,13 +20,9 @@ committed evidence naming the same version.
 
 `flow/evidence/drc.json` is the `klt drc --deck gf180mcu` report for the
 routed `smoke_reg` (gf180mcuC, 5-metal stack), committed by
-`make flow-smoke-write`. Its verdict is `violations` (1489), so the
-smoke's DRC gate is unmet; every hit is on the PDN `request.power` builds
-(`metal2/3/4.ongrid.1`, `via2/3.ongrid.1`, `via2/3.width.1`, all on the
-`VIA_via2_3_*` via arrays the `split_cuts`/`ongrid` connect tuning
-generates) or on the tapcell pitch (`comp.tap_distance.nwell.mv.1`,
-`comp.tap_distance.psub.mv.1`). The report's own coverage block, quoted
-rather than described:
+`make flow-smoke-write`. The gf180mcu deck reports `clean` with zero
+violations after the smoke's via-stack and tapcell changes in #23.
+The coverage fields below come from that report.
 
 ```json
 {

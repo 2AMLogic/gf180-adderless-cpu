@@ -16,10 +16,11 @@
   "detailed_route": {
    "converged": true,
    "drc_violations_per_iteration": [
+    1,
     0
    ],
-   "first_iteration_drc_violation_count": 0,
-   "iteration_count": 1
+   "first_iteration_drc_violation_count": 1,
+   "iteration_count": 2
   },
   "global_route": {
    "max_gcell_usage_pct": null,
@@ -39,7 +40,7 @@
      "demand": 2,
      "max_horizontal_overflow": 0,
      "max_vertical_overflow": 0,
-     "resource": 3424,
+     "resource": 3440,
      "total_overflow": 0,
      "usage_pct": 0.06
     },
@@ -47,7 +48,7 @@
      "demand": 4,
      "max_horizontal_overflow": 0,
      "max_vertical_overflow": 0,
-     "resource": 3654,
+     "resource": 3664,
      "total_overflow": 0,
      "usage_pct": 0.11
     },
@@ -79,7 +80,7 @@
    "global_route.overflow_regions": "no `global_route -congestion_report_file` report was produced or it held no congestion violations"
   },
   "placement": {
-   "final_weighted_congestion": 0.5556,
+   "final_weighted_congestion": 0.5525,
    "overflowed_tile_count": 0,
    "total_routing_overflow": 0.0
   }
@@ -289,7 +290,7 @@
  "estimated_power_mw": 0.0036,
  "flow": {
   "claim": "smoke register runs through synthesis, place-and-route, DRC, gate-level LVS and the supply ERC read on gf180mcu via klt; not the CPU, the ISA, any spec content, or the block's target library, site or corner",
-  "elapsed_s": 44.779,
+  "elapsed_s": 13.067,
   "engine_versions": {
    "openroad": "OpenROAD 26Q3-1510-g6cb3f2b704",
    "yosys": "Yosys 0.67+post (git sha1 b8e7da6f40ae8f552c116bf6c359b07c6533e159, Release, GNU /usr/bin/c++ 13.3.0)"
@@ -300,7 +301,7 @@
    "pdn": true,
    "tapcell_master": "gf180mcu_fd_sc_mcu9t5v0__filltie"
   },
-  "generated_at": "2026-11-22T23:33:14+00:00",
+  "generated_at": "2026-11-23T20:34:26+00:00",
   "klt_command": [
    "klt",
    "place-and-route",
@@ -315,7 +316,7 @@
   "reasons": [],
   "request": "flow/request-par-smoke.json",
   "request_overrides": {},
-  "request_sha256": "436e2b0f08ba4cc0f8f52556e813f8ca9285522556e6324f37e9855f3e1a50bc",
+  "request_sha256": "1031b1221fbeb747c46666528c768c0e4bf3cef17718881f5111d11c9ddcc0af",
   "rtl_sha256": {
    "rtl/smoke_reg.v": "b5787d009eeb2a3a9cc9eeb6449dcc21577cd00c5288e43934926856ea5b7099"
   },
@@ -399,15 +400,8 @@
      "Metal4"
     ],
     "max_columns": 5,
-    "ongrid": [
-     "Metal2",
-     "Metal3",
-     "Metal4"
-    ],
-    "split_cuts": {
-     "layer": "Metal3",
-     "width_um": 0.128
-    }
+    "ongrid": null,
+    "split_cuts": null
    },
    {
     "layers": [
@@ -434,16 +428,16 @@
   "ground_net": "VSS",
   "pdn": true,
   "placed": {
-   "components": 266,
+   "components": 614,
    "endcaps": 52,
    "evidence": "def",
-   "fillers": 199,
+   "fillers": 377,
    "missing": [],
    "special_nets": [
     {
      "followpin_segments": 13,
      "name": "VDD",
-     "other_segments": 39,
+     "other_segments": 0,
      "stripe_layers": [
       "Metal5",
       "Metal4",
@@ -451,14 +445,14 @@
       "Metal2",
       "Metal1"
      ],
-     "stripe_segments": 2776,
+     "stripe_segments": 124,
      "use": "POWER",
-     "vias": 2772
+     "vias": 120
     },
     {
      "followpin_segments": 14,
      "name": "VSS",
-     "other_segments": 42,
+     "other_segments": 0,
      "stripe_layers": [
       "Metal5",
       "Metal4",
@@ -466,13 +460,13 @@
       "Metal2",
       "Metal1"
      ],
-     "stripe_segments": 2989,
+     "stripe_segments": 133,
      "use": "GROUND",
-     "vias": 2985
+     "vias": 129
     }
    ],
    "status": "complete",
-   "tapcells": 14,
+   "tapcells": 184,
    "unavailable_reason": null
   },
   "power_net": "VDD",
@@ -498,7 +492,7 @@
     "spacing_um": null
    }
   ],
-  "tapcell_distance_um": 100,
+  "tapcell_distance_um": 10,
   "tapcell_master": "gf180mcu_fd_sc_mcu9t5v0__filltie",
   "tapless": false
  },
@@ -527,9 +521,6 @@
   "klt_reinstall_spec": "klayout-tools==0.9.2",
   "klt_version": "0.9.2",
   "pdk": {
-   "ambiguous_sources": [
-    "search root: ~/.volare"
-   ],
    "name": "gf180mcuC",
    "source": "search root: ~/.ciel",
    "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
@@ -548,7 +539,7 @@
    "name": "floorplan",
    "timing_status": "unconstrained",
    "total_negative_slack_ns": 0,
-   "utilization_pct": 2.6392,
+   "utilization_pct": 8.1107,
    "worst_slack_ns": 1e+39
   },
   {
@@ -562,8 +553,8 @@
    "setup_violation_count": 0,
    "timing_status": "unconstrained",
    "total_negative_slack_ns": 0,
-   "utilization_pct": 2.6392,
-   "wirelength_um": 96.888,
+   "utilization_pct": 8.1107,
+   "wirelength_um": 119.617,
    "worst_slack_ns": 1e+39
   },
   {
@@ -578,8 +569,8 @@
    "setup_violation_count": 0,
    "timing_status": "unconstrained",
    "total_negative_slack_ns": 0,
-   "utilization_pct": 2.6392,
-   "wirelength_um": 96.888,
+   "utilization_pct": 8.1107,
+   "wirelength_um": 119.617,
    "worst_slack_ns": 1e+39
   },
   {
@@ -594,10 +585,11 @@
     "detailed_route": {
      "converged": true,
      "drc_violations_per_iteration": [
+      1,
       0
      ],
-     "first_iteration_drc_violation_count": 0,
-     "iteration_count": 1
+     "first_iteration_drc_violation_count": 1,
+     "iteration_count": 2
     },
     "global_route": {
      "max_gcell_usage_pct": null,
@@ -617,7 +609,7 @@
        "demand": 2,
        "max_horizontal_overflow": 0,
        "max_vertical_overflow": 0,
-       "resource": 3424,
+       "resource": 3440,
        "total_overflow": 0,
        "usage_pct": 0.06
       },
@@ -625,7 +617,7 @@
        "demand": 4,
        "max_horizontal_overflow": 0,
        "max_vertical_overflow": 0,
-       "resource": 3654,
+       "resource": 3664,
        "total_overflow": 0,
        "usage_pct": 0.11
       },
@@ -657,7 +649,7 @@
      "global_route.overflow_regions": "no `global_route -congestion_report_file` report was produced or it held no congestion violations"
     },
     "placement": {
-     "final_weighted_congestion": 0.5556,
+     "final_weighted_congestion": 0.5525,
      "overflowed_tile_count": 0,
      "total_routing_overflow": 0.0
     }
@@ -859,8 +851,8 @@
    "setup_violation_count": 0,
    "timing_status": "unconstrained",
    "total_negative_slack_ns": 0,
-   "utilization_pct": 2.6392,
-   "wirelength_um": 105,
+   "utilization_pct": 8.1107,
+   "wirelength_um": 130,
    "worst_hold_slack_ns": 1e+39,
    "worst_setup_slack_ns": 1e+39,
    "worst_slack_ns": 1e+39
@@ -869,7 +861,7 @@
  "status": "ok",
  "timing_status": "unconstrained",
  "total_negative_slack_ns": 0,
- "utilization_pct": 2.6392,
+ "utilization_pct": 8.1107,
  "via_pad_trim": {
   "cells_touched": 0,
   "pads_left": 0,
@@ -879,7 +871,7 @@
   "status": "skipped"
  },
  "warnings": [],
- "wirelength_um": 105,
+ "wirelength_um": 130,
  "worst_hold_slack_ns": 1e+39,
  "worst_setup_slack_ns": 1e+39,
  "worst_slack_ns": 1e+39

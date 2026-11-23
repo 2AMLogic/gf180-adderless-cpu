@@ -60,10 +60,15 @@ Those stay spec decisions (#6).
 | `lvs` | `request-lvs-smoke.json` | `klt lvs`, `reference.form: "gate-level-verilog"`, `options.power_connectivity` | `evidence/lvs.json` | gate 2: `status` and `power_connectivity.status` both `"match"` |
 | `erc` | `request-erc-smoke.json` | `klt erc` supply read | `evidence/erc.json` | gate 3: one island per supply, zero `missing_tie`, tie check run |
 
-`request-par-smoke.json` is the starter request with its `FILL` markers
-filled and the `power` block unchanged; `request-par.json` stays for the
-real block. The smoke fills it as follows, none of which is a statement
-about the block:
+`request-par-smoke.json` uses the starter's strap geometry. For the
+Metal1-to-Metal4 connection it keeps the five-column limit and omits
+`ongrid` and `split_cuts`, which produced off-grid and wrong-width vias.
+It sets `power.tapcell.distance_um` to 10 µm because the library's
+100 µm default left diffusion too far from a tap. This smoke-specific
+change supersedes #18's choice to copy the starter's power settings.
+[Operator ruling in #23](https://github.com/2AMLogic/gf180-adderless-cpu/issues/23)
+
+The smoke also fills in the starter's design and output settings.
 
 - `utilization_pct: 0.5`. The starter's Metal5 strap needs at least
   94.08 um of core height (klt's own pre-flight), and a one-flop design
@@ -118,18 +123,12 @@ toolchain (klt 0.9.2, Yosys 0.67+post, OpenROAD 26Q3-1510, gf180mcuC):
   **gate 2 met**.
 - `erc`: `erc_status: "clean"`, VDD and VSS each one island, the nwell and
   pwell tie checks run with zero findings -- **gate 3 met**.
-- `drc`: `status: "violations"`, 1489 hits, all on the PDN: the via
-  arrays the `power.connects` tuning generates (`metal2/3/4.ongrid.1`,
-  `via2/3.ongrid.1`, `via2/3.width.1`) and the tapcell pitch
-  (`comp.tap_distance.nwell.mv.1`, `comp.tap_distance.psub.mv.1`). The
-  smoke's `power` block is the starter's, kept unchanged as the issue
-  requires, so this is a finding about the flow, not something to work
-  around: [klayout-tools#7311](https://github.com/2AMLogic/klayout-tools/issues/7311),
-  tracked here in #23.
-  The report's coverage block is quoted in `layout/README.md`.
+- `drc`: `status: "clean"`, zero violations. This run supersedes the
+  1,489 findings on the earlier via stacks and tap placement. The deck
+  checked all nine rules that previously reported violations.
+  [DRC coverage](../layout/README.md#drc-of-the-smoke-register)
 
-So `make flow-smoke` currently exits 1 (FAIL): four steps pass, the DRC
-gate is unmet. A blocked gate is never reported as a pass.
+`make flow-smoke` reproduces the five passing records and exits 0.
 
 ### Statuses (`flow/flow_smoke.py`)
 

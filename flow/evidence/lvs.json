@@ -26,49 +26,42 @@
   },
   {
    "cell": "gf180mcu_fd_sc_mcu9t5v0__fill_16",
-   "instance_count": 27,
+   "instance_count": 12,
    "lef_path": null,
    "pin_count": 2,
    "resolution_source": "in_cell_labels"
   },
   {
    "cell": "gf180mcu_fd_sc_mcu9t5v0__fill_2",
-   "instance_count": 14,
+   "instance_count": 66,
    "lef_path": null,
    "pin_count": 2,
    "resolution_source": "in_cell_labels"
   },
   {
    "cell": "gf180mcu_fd_sc_mcu9t5v0__fill_32",
-   "instance_count": 41,
+   "instance_count": 143,
    "lef_path": null,
    "pin_count": 2,
    "resolution_source": "in_cell_labels"
   },
   {
    "cell": "gf180mcu_fd_sc_mcu9t5v0__fill_4",
-   "instance_count": 1,
-   "lef_path": null,
-   "pin_count": 2,
-   "resolution_source": "in_cell_labels"
-  },
-  {
-   "cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "instance_count": 63,
+   "instance_count": 64,
    "lef_path": null,
    "pin_count": 2,
    "resolution_source": "in_cell_labels"
   },
   {
    "cell": "gf180mcu_fd_sc_mcu9t5v0__fill_8",
-   "instance_count": 27,
+   "instance_count": 66,
    "lef_path": null,
    "pin_count": 2,
    "resolution_source": "in_cell_labels"
   },
   {
    "cell": "gf180mcu_fd_sc_mcu9t5v0__filltie",
-   "instance_count": 14,
+   "instance_count": 184,
    "lef_path": null,
    "pin_count": 2,
    "resolution_source": "in_cell_labels"
@@ -134,14 +127,14 @@
  "environment": {
   "engine": "klayout",
   "engine_version": "0.30.13",
-  "layout_sha256": "decb8557b2e76063788e5d6ab962d01f8c2c273ff72f22826a282f73535f0bf3",
+  "layout_sha256": "0f24809238a0d9ccc52b47d4a0bfca4a9ef8fd602e8f7aeae9ad8c5d6031a2b2",
   "netgen_binary": null,
   "reference_sha256": "55d444e58f8cacfc063695a84ded5f9f4b77d39ee1b6543984bf1803cdb2d80e"
  },
  "error_count": 0,
  "flow": {
   "claim": "smoke register runs through synthesis, place-and-route, DRC, gate-level LVS and the supply ERC read on gf180mcu via klt; not the CPU, the ISA, any spec content, or the block's target library, site or corner",
-  "elapsed_s": 1.64,
+  "elapsed_s": 0.507,
   "engine_versions": {
    "openroad": "OpenROAD 26Q3-1510-g6cb3f2b704",
    "yosys": "Yosys 0.67+post (git sha1 b8e7da6f40ae8f552c116bf6c359b07c6533e159, Release, GNU /usr/bin/c++ 13.3.0)"
@@ -152,7 +145,7 @@
    "power_connectivity": "match",
    "status": "match"
   },
-  "generated_at": "2026-11-22T23:33:17+00:00",
+  "generated_at": "2026-11-23T20:34:27+00:00",
   "klt_command": [
    "klt",
    "lvs",
@@ -229,7 +222,7 @@
   {
    "category": "topology.power_only_pruned",
    "circuit": null,
-   "description": "removed layout-side circuit(s) whose every declared pin is a power/ground pin of the reference library (a pin the library declares but the gate-level-Verilog reference never carries), and every instance of them, before comparing -- 9 circuit(s): gf180mcu_fd_sc_mcu9t5v0__endcap, gf180mcu_fd_sc_mcu9t5v0__fill_1, gf180mcu_fd_sc_mcu9t5v0__fill_16, gf180mcu_fd_sc_mcu9t5v0__fill_2, gf180mcu_fd_sc_mcu9t5v0__fill_32, gf180mcu_fd_sc_mcu9t5v0__fill_4, gf180mcu_fd_sc_mcu9t5v0__fill_64, gf180mcu_fd_sc_mcu9t5v0__fill_8, gf180mcu_fd_sc_mcu9t5v0__filltie (see docs/cli/lvs.md, \"topology.power_only_pruned\")",
+   "description": "removed layout-side circuit(s) whose every declared pin is a power/ground pin of the reference library (a pin the library declares but the gate-level-Verilog reference never carries), and every instance of them, before comparing -- 8 circuit(s): gf180mcu_fd_sc_mcu9t5v0__endcap, gf180mcu_fd_sc_mcu9t5v0__fill_1, gf180mcu_fd_sc_mcu9t5v0__fill_16, gf180mcu_fd_sc_mcu9t5v0__fill_2, gf180mcu_fd_sc_mcu9t5v0__fill_32, gf180mcu_fd_sc_mcu9t5v0__fill_4, gf180mcu_fd_sc_mcu9t5v0__fill_8, gf180mcu_fd_sc_mcu9t5v0__filltie (see docs/cli/lvs.md, \"topology.power_only_pruned\")",
    "details": null,
    "device": null,
    "instance": null,
@@ -372,7 +365,7 @@
   "expected_nets": null,
   "finding_count": 0,
   "findings": [],
-  "instance_count": 266,
+  "instance_count": 614,
   "power_pins": [
    "VDD",
    "VSS"
@@ -408,7 +401,7 @@
    "released": true
   },
   "input": {
-   "content_hash": "sha256:decb8557b2e76063788e5d6ab962d01f8c2c273ff72f22826a282f73535f0bf3",
+   "content_hash": "sha256:0f24809238a0d9ccc52b47d4a0bfca4a9ef8fd602e8f7aeae9ad8c5d6031a2b2",
    "role": "layout"
   },
   "klayout_version": "0.30.13",
@@ -417,9 +410,6 @@
   "klt_reinstall_spec": "klayout-tools==0.9.2",
   "klt_version": "0.9.2",
   "pdk": {
-   "ambiguous_sources": [
-    "search root: ~/.volare"
-   ],
    "name": "gf180mcuC",
    "source": "search root: ~/.ciel",
    "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"

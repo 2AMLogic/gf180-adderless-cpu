@@ -29,14 +29,14 @@
  "equivalence": null,
  "flow": {
   "claim": "smoke register runs through synthesis, place-and-route, DRC, gate-level LVS and the supply ERC read on gf180mcu via klt; not the CPU, the ISA, any spec content, or the block's target library, site or corner",
-  "elapsed_s": 2.402,
+  "elapsed_s": 1.637,
   "engine_versions": {
    "openroad": "OpenROAD 26Q3-1510-g6cb3f2b704",
    "yosys": "Yosys 0.67+post (git sha1 b8e7da6f40ae8f552c116bf6c359b07c6533e159, Release, GNU /usr/bin/c++ 13.3.0)"
   },
   "gate": "none",
   "gates": {},
-  "generated_at": "2026-11-22T23:32:29+00:00",
+  "generated_at": "2026-11-23T20:34:13+00:00",
   "klt_command": [
    "klt",
    "synthesize",
@@ -92,9 +92,6 @@
   "klt_version": "0.9.2",
   "parameters": {},
   "pdk": {
-   "ambiguous_sources": [
-    "search root: ~/.volare"
-   ],
    "name": "gf180mcuC",
    "source": "search root: ~/.ciel",
    "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
