@@ -7,7 +7,7 @@ The body below is a snapshot of GitHub label state as of the last merged docs-ma
 <!-- Maintained automatically by the Guide triage agent. Manual edits are fine but may be overwritten. -->
 
 <!-- guide:plan-body:start -->
-_Generated: 2026-11-23T01:58:00Z (snapshot; compare against live labels)_
+_Generated: 2026-11-23T10:08:53Z (snapshot; compare against live labels)_
 ## Operator Attention: Merge-Risk-Hold Pileup
 
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
@@ -37,7 +37,6 @@ _None._
 Issues currently being built (`loom:building`).
 
 - **#1**: Draft and ratify the target spec
-- **#25**: flow smoke: an `unchecked` klt lvs power verdict is recorded FAIL, not BLOCKED
 
 ## PRs Awaiting Review
 
@@ -49,14 +48,13 @@ PRs waiting on Judge (`loom:review-requested`).
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-- **#29**: fix(flow): grade an unchecked lvs power verdict BLOCKED, not FAIL — closes #25
+_None._
 
 ## Proposed
 
 Issues carrying `loom:curated`.
 
 - **#1**: Draft and ratify the target spec *(curated)*
-- **#25**: flow smoke: an `unchecked` klt lvs power verdict is recorded FAIL, not BLOCKED *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -74,10 +72,10 @@ _None._
 | Very important | 0 |
 | Important | 0 |
 | Ready (`loom:issue`, net of holds/building/merge-pending) | 0 |
-| In Progress (`loom:building`) | 2 |
+| In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 1 |
-| Approved PRs awaiting merge | 1 |
-| Curated | 2 |
+| Approved PRs awaiting merge | 0 |
+| Curated | 1 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->

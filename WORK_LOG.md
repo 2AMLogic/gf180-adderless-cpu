@@ -10,6 +10,8 @@ Entries are grouped by date, newest first. Each entry references the merged PR o
 
 ### 2026-11-23
 
+- **Issue #25** (closed): flow smoke: an `unchecked` klt lvs power verdict is recorded FAIL, not BLOCKED
+- **PR #29**: fix(flow): grade an unchecked lvs power verdict BLOCKED, not FAIL
 - **PR #28**: docs(flow): say check mode compares flow.engine_versions verbatim
 - **Issue #26** (closed): flow smoke check mode compares the runner's own engine build strings, so committed evidence cannot reproduce on another worker
 - **PR #24**: feat: add the klt implementation-flow smoke for the smoke register
