@@ -7,7 +7,7 @@ The body below is a snapshot of GitHub label state as of the last merged docs-ma
 <!-- Maintained automatically by the Guide triage agent. Manual edits are fine but may be overwritten. -->
 
 <!-- guide:plan-body:start -->
-_Generated: 2026-11-23T00:45:00Z (snapshot; compare against live labels)_
+_Generated: 2026-11-23T01:58:00Z (snapshot; compare against live labels)_
 ## Operator Attention: Merge-Risk-Hold Pileup
 
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
@@ -37,7 +37,7 @@ _None._
 Issues currently being built (`loom:building`).
 
 - **#1**: Draft and ratify the target spec
-- **#18**: Bring up the implementation flow on the smoke register: synthesize, place-and-route, DRC, LVS and supply ERC through klt, with committed evidence and a pinned toolchain
+- **#25**: flow smoke: an `unchecked` klt lvs power verdict is recorded FAIL, not BLOCKED
 
 ## PRs Awaiting Review
 
@@ -49,14 +49,14 @@ PRs waiting on Judge (`loom:review-requested`).
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-- **#24**: feat: add the klt implementation-flow smoke for the smoke register
+- **#29**: fix(flow): grade an unchecked lvs power verdict BLOCKED, not FAIL — closes #25
 
 ## Proposed
 
 Issues carrying `loom:curated`.
 
 - **#1**: Draft and ratify the target spec *(curated)*
-- **#18**: Bring up the implementation flow on the smoke register: synthesize, place-and-route, DRC, LVS and supply ERC through klt, with committed evidence and a pinned toolchain *(curated)*
+- **#25**: flow smoke: an `unchecked` klt lvs power verdict is recorded FAIL, not BLOCKED *(curated)*
 
 ## Proposed (Architect / Hermit)
 
