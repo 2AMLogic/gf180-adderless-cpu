@@ -84,7 +84,10 @@ the 5-metal-stack gf180mcu variants have; klt's default discovery picks
 `gf180mcuA` (3 metals), where `place` dies with `PPL-0051`. The runner
 therefore resolves `--pdk gf180mcuC` (a runner argument, set for klt both
 as the `--pdk` flag and as `$PDK`), and the requests name it where they
-can. `--cell-library`, `--corner` and `--site` are runner arguments too
+can. `--pdk-variant` applies to `synthesize` and `place-and-route` only;
+`drc` and `lvs` run against the `pdk` field committed in their own
+requests, which `--pdk-variant` does not rewrite. `--cell-library`,
+`--corner` and `--site` are runner arguments too
 that default to the committed requests' values; an override is applied to
 a copy under `flow/build/effective/`, never to the committed file, and is
 recorded in the evidence's `request_overrides`.
@@ -136,7 +139,7 @@ Same convention as `make smoke`:
 | --- | --- | --- |
 | PASS | 0 | every step reached a verdict, every gate is met and, in check mode, the committed evidence reproduces |
 | FAIL | 1 | a gate is unmet, or the committed evidence does not reproduce (an altered record, a BLOCKED record whose step now runs, other RTL or klt version) |
-| BLOCKED | 2 | the pinned toolchain is not what is installed, `yosys`/`openroad` is missing, klt could not produce a report for a step (error exit, no JSON, timeout), or klt reached no verdict (for example a skipped tie check). Never a pass |
+| BLOCKED | 2 | the pinned toolchain is not what is installed, `yosys`/`openroad` is missing, klt could not produce a report for a step (error exit, no JSON, timeout), or klt reached no verdict (for example a skipped tie check, or an lvs power/ground verdict klt left `unchecked`). Never a pass |
 
 A step whose input step is BLOCKED is recorded BLOCKED as not reached and
 the run continues with the steps that do not depend on it. `--write`

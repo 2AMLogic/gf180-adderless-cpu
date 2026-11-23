@@ -402,13 +402,17 @@ def judge(step: Step, report: dict) -> tuple:
                               and gates["power_connectivity"] == "match")
         if gates["gate2_lvs"]:
             return "PASS", gates, []
-        if gates["status"] == "mismatch" or "match" in (
-                gates["status"], gates["power_connectivity"]):
+        if (gates["status"] == "mismatch"
+                or gates["power_connectivity"] == "mismatch"):
             return "FAIL", gates, [f"gate 2 unmet: status "
                                    f"{gates['status']!r}, power_connectivity "
                                    f"{gates['power_connectivity']!r}"]
-        return "BLOCKED", gates, [f"klt lvs reached no verdict (status "
-                                  f"{gates['status']!r})"]
+        reasons = [f"klt lvs reached no verdict (status "
+                   f"{gates['status']!r}, power_connectivity "
+                   f"{gates['power_connectivity']!r})"]
+        if pc.get("reason"):
+            reasons.append(pc["reason"])
+        return "BLOCKED", gates, reasons
     if name == "erc":
         nets = {n.get("name"): n for n in report.get("nets") or []}
         cov = report.get("erc_coverage") or {}
