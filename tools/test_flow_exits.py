@@ -225,6 +225,29 @@ class FlowExitCodeTests(unittest.TestCase):
         self.assertIn("FAILS to reproduce", p.stdout)
         self.assertIn("/power/placed/tapcells", p.stdout)
 
+    def test_engine_build_string_compared_verbatim(self):
+        """flow.engine_versions is not VOLATILE (issue #26): matching
+        builds reproduce, and a compiler-only rebuild at the same Yosys
+        SHA reads as drift naming /flow/engine_versions/yosys."""
+        stub = self.simbin / "yosys"
+
+        def yosys_stub(compiler):
+            stub.write_text(
+                "#!/bin/sh\necho 'Yosys 0.67+post (git sha1 "
+                "b8e7da6f40ae8f552c116bf6c359b07c6533e159, Release, "
+                f"{compiler})'\n", encoding="utf-8")
+
+        yosys_stub("GNU /usr/bin/c++ 13.3.0")
+        self.assertEqual(self.run_flow("clean", "--write").returncode, 0)
+        p = self.run_flow()
+        self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+        yosys_stub("Clang /usr/bin/c++ 18.1.3")
+        p = self.run_flow()
+        self.assertEqual(p.returncode, 1, p.stdout + p.stderr)
+        self.assertIn("FAILS to reproduce", p.stdout)
+        self.assertIn("/flow/engine_versions/yosys", p.stdout)
+        self.assertNotIn("/flow/engine_versions/openroad", p.stdout)
+
     def test_blocked_record_that_now_passes_is_fail(self):
         self.assertEqual(self.run_flow("par_fails", "--write").returncode, 2)
         p = self.run_flow()

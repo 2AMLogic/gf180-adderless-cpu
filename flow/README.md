@@ -147,12 +147,23 @@ recipe fails; the runner's own exit code is the `flow-smoke: <STATUS>`
 line's status.
 
 Check mode re-runs every step and compares the whole scrubbed report and
-`flow` block with the committed record. Artifact paths, run ids, the
-engine build strings and klt's tool-version provenance are excluded, as
-klt's own `--check --rerun` excludes them (a tool upgrade that leaves the
-result untouched is churn, not drift); the klt version is still required
-to match, and `python3 tools/check_pins.py` keeps the committed records
-naming the pinned version.
+`flow` block with the committed record. Artifact paths, run ids and klt's
+tool-version provenance are excluded, as klt's own `--check --rerun`
+excludes them (a tool upgrade that leaves the result untouched is churn,
+not drift); that exclusion covers the engine build strings klt itself
+reports per step (`engine_version`, `environment.engine_version`). The
+klt version is still required to match, and `python3
+tools/check_pins.py` keeps the committed records naming the pinned
+version. The runner's own `flow.engine_versions` -- the yosys and
+openroad build strings recorded from the host PATH -- are not excluded:
+check mode compares them verbatim.
+
+A check failure confined to `/flow/engine_versions/yosys` or
+`/flow/engine_versions/openroad` means the committed evidence was written
+by a differently built engine, not that the physical results drifted.
+Compare the build strings recorded in the committed evidence with the
+ones your host reports, and rerun on a host whose builds match before
+drawing conclusions about the physical results.
 
 ### Where it runs, and why not in CI
 
