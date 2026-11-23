@@ -47,9 +47,15 @@ Statuses and exit codes
 What is compared in check mode: the whole scrubbed klt report of each step
 plus the runner's own `flow` block (input hashes, overrides, verdict,
 gates).  Excluded as run-scoped or tool churn, following klt's own
-`--check --rerun` contract: artifact paths, run ids, the engine build
-strings and klt's tool-version provenance.  Those are still recorded in
-the evidence; the klt version in it is `tools/check_pins.py`'s job.
+`--check --rerun` contract: artifact paths, run ids and klt's tool-version
+provenance, which covers the engine build strings klt itself reports per
+step (`engine_version`, `environment.engine_version`).  Those are still
+recorded in the evidence; the klt version in it is `tools/check_pins.py`'s
+job.  The runner's own `flow.engine_versions` -- the yosys and openroad
+build strings recorded from the host PATH -- are not excluded: check mode
+compares them verbatim, so evidence written by a differently built engine
+does not reproduce (flow/README.md says how to read a difference confined
+to /flow/engine_versions/*).
 
 The pinned toolchain is `klayout-tools==0.9.2` in the venv `make smoke`
 builds (.venv-fv); layout/toolchain_pin.py checks it before any step runs.
