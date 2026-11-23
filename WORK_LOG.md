@@ -8,6 +8,13 @@ Entries are grouped by date, newest first. Each entry references the merged PR o
 
 ## Archives
 
+### 2026-11-23
+
+- **PR #28**: docs(flow): say check mode compares flow.engine_versions verbatim
+- **Issue #26** (closed): flow smoke check mode compares the runner's own engine build strings, so committed evidence cannot reproduce on another worker
+- **PR #24**: feat: add the klt implementation-flow smoke for the smoke register
+- **Issue #18** (closed): Bring up the implementation flow on the smoke register: synthesize, place-and-route, DRC, LVS and supply ERC through klt, with committed evidence and a pinned toolchain
+
 ### 2026-11-22
 
 - **PR #19**: chore(loom): resync installed Loom to v0.20.8 (clears the dispatch hold)
