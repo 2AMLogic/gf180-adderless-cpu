@@ -7,9 +7,10 @@ canned klt-shaped reports, so no real klt, yosys, openroad, PDK or network
 is involved (yosys/openroad are stubbed on PATH).  Covers the verdict tiers
 a healthy toolchain cannot hit on purpose: a DRC run with violations
 (FAIL, 1), a klt tool failure (BLOCKED, 2) with its downstream steps
-recorded as not reached, a tie check klt skipped rather than ran (BLOCKED,
-never a pass), a pin that names a command the install lacks (BLOCKED before
-any step runs), and a committed record that no longer reproduces (FAIL).
+recorded as not reached, a tie check klt skipped rather than ran, an lvs
+power/ground verdict klt left `unchecked` (both BLOCKED, never a pass), a
+pin that names a command the install lacks (BLOCKED before any step runs),
+and a committed record that no longer reproduces (FAIL).
 
 Run: python3 tools/test_flow_exits.py
 """
@@ -71,6 +72,17 @@ REPORTS = {
         "provenance": dict(PROV)},
 }
 
+POWER_UNCHECKED_REASON = ("no power-pin universe is derivable from the "
+                          "reference library's pin-order data")
+LVS_CASES = {
+    "lvs_power_unchecked": ("match", {"status": "unchecked",
+                                      "reason": POWER_UNCHECKED_REASON}),
+    "lvs_power_unchecked_no_reason": ("match", {"status": "unchecked"}),
+    "lvs_power_mismatch": ("match", {"status": "mismatch"}),
+    "lvs_mismatch_power_unchecked": (
+        "mismatch", {"status": "unchecked", "reason": POWER_UNCHECKED_REASON}),
+}
+
 FAKE_KLT = r'''#!/usr/bin/env python3
 import json, os, sys, uuid
 argv = sys.argv[1:]
@@ -110,8 +122,11 @@ if cmd == "erc" and scenario == "erc_tie_skipped":
         "skipped": [{"id": "erc.missing_tie:[\"nwell_tie\"]",
                      "reason": "degenerate_tap_declaration"}],
         "missing_tie_checked": False}
+if cmd == "lvs" and scenario in __LVS_CASES__:
+    report["status"], report["power_connectivity"] = __LVS_CASES__[scenario]
 emit(report)
-'''.replace("__REPORTS__", repr(REPORTS))
+'''.replace("__REPORTS__", repr(REPORTS)).replace(
+    "__LVS_CASES__", repr(LVS_CASES))
 
 
 class FlowExitCodeTests(unittest.TestCase):
@@ -212,6 +227,37 @@ class FlowExitCodeTests(unittest.TestCase):
         self.assertEqual(rec["flow"]["verdict"], "BLOCKED")
         self.assertEqual(rec["flow"]["gates"]["gate3_erc"], False)
         self.assertIn("tie check skipped", rec["flow"]["reasons"][0])
+
+    def test_unchecked_power_verdict_is_blocked_never_fail(self):
+        p = self.run_flow("lvs_power_unchecked", "--write")
+        self.assertEqual(p.returncode, 2, p.stdout + p.stderr)
+        rec = self.evidence("lvs")
+        self.assertEqual(rec["flow"]["verdict"], "BLOCKED")
+        self.assertEqual(rec["flow"]["gates"]["gate2_lvs"], False)
+        self.assertIn(POWER_UNCHECKED_REASON, rec["flow"]["reasons"])
+        self.assertIn("lvs: BLOCKED", p.stdout)
+        for step in ("synth", "par", "drc", "erc"):
+            self.assertEqual(self.evidence(step)["flow"]["verdict"], "PASS",
+                             step)
+
+    def test_unchecked_power_verdict_without_reason_is_still_blocked(self):
+        p = self.run_flow("lvs_power_unchecked_no_reason", "--write")
+        self.assertEqual(p.returncode, 2, p.stdout + p.stderr)
+        rec = self.evidence("lvs")
+        self.assertEqual(rec["flow"]["verdict"], "BLOCKED")
+        self.assertNotIn(None, rec["flow"]["reasons"])
+
+    def test_power_mismatch_is_fail(self):
+        p = self.run_flow("lvs_power_mismatch", "--write")
+        self.assertEqual(p.returncode, 1, p.stdout + p.stderr)
+        self.assertEqual(self.evidence("lvs")["flow"]["verdict"], "FAIL")
+
+    def test_mismatch_with_unchecked_power_is_fail(self):
+        p = self.run_flow("lvs_mismatch_power_unchecked", "--write")
+        self.assertEqual(p.returncode, 1, p.stdout + p.stderr)
+        rec = self.evidence("lvs")
+        self.assertEqual(rec["flow"]["verdict"], "FAIL")
+        self.assertIn("lvs: FAIL", p.stdout)
 
     def test_altered_evidence_fails_check(self):
         self.assertEqual(self.run_flow("clean", "--write").returncode, 0)
