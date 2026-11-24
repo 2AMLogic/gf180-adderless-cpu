@@ -743,16 +743,16 @@
  "deck": "gf180mcu",
  "flow": {
   "claim": "smoke register runs through synthesis, place-and-route, DRC, gate-level LVS and the supply ERC read on gf180mcu via klt; not the CPU, the ISA, any spec content, or the block's target library, site or corner",
-  "elapsed_s": 1.39,
+  "elapsed_s": 0.863,
   "engine_versions": {
    "openroad": "OpenROAD 26Q3-1510-g6cb3f2b704",
    "yosys": "Yosys 0.67+post (git sha1 b8e7da6f40ae8f552c116bf6c359b07c6533e159, Release, GNU /usr/bin/c++ 13.3.0)"
   },
   "gate": "drc_clean",
   "gates": {
-   "status": "violations"
+   "status": "clean"
   },
-  "generated_at": "2026-11-22T23:33:15+00:00",
+  "generated_at": "2026-11-23T20:34:27+00:00",
   "klt_command": [
    "klt",
    "drc",
@@ -760,11 +760,9 @@
    "--format",
    "json"
   ],
-  "klt_exit": 3,
+  "klt_exit": 0,
   "klt_version": "0.9.2",
-  "reasons": [
-   "1489 DRC violations: {\"comp.tap_distance.nwell.mv.1\": 4, \"comp.tap_distance.psub.mv.1\": 3, \"metal2.ongrid.1\": 324, \"metal3.ongrid.1\": 324, \"metal4.ongrid.1\": 24, \"via2.ongrid.1\": 324, \"via2.width.1\": 81, \"via3.ongrid.1\": 324, \"via3.width.1\": 81}"
-  ],
+  "reasons": [],
   "request": "flow/request-drc-smoke.json",
   "request_overrides": {},
   "request_sha256": "11df24e48b37ba787f02d5e3b5b6c919ed8b9cc823a982e3f3f8a6dbcbdc5b84",
@@ -772,10 +770,10 @@
    "rtl/smoke_reg.v": "b5787d009eeb2a3a9cc9eeb6449dcc21577cd00c5288e43934926856ea5b7099"
   },
   "step": "drc",
-  "verdict": "FAIL"
+  "verdict": "PASS"
  },
  "metrics": {
-  "drc__error__count": 1489
+  "drc__error__count": 0
  },
  "provenance": {
   "deck": {
@@ -784,7 +782,7 @@
    "released": true
   },
   "input": {
-   "content_hash": "sha256:decb8557b2e76063788e5d6ab962d01f8c2c273ff72f22826a282f73535f0bf3",
+   "content_hash": "sha256:0f24809238a0d9ccc52b47d4a0bfca4a9ef8fd602e8f7aeae9ad8c5d6031a2b2",
    "role": "layout"
   },
   "klayout_version": "0.30.13",
@@ -793,551 +791,15 @@
   "klt_reinstall_spec": "klayout-tools==0.9.2",
   "klt_version": "0.9.2",
   "pdk": {
-   "ambiguous_sources": [
-    "search root: ~/.volare"
-   ],
    "name": "gf180mcuC",
    "source": "search root: ~/.ciel",
    "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
   }
  },
- "rule_counts": {
-  "comp.tap_distance.nwell.mv.1": 4,
-  "comp.tap_distance.psub.mv.1": 3,
-  "metal2.ongrid.1": 324,
-  "metal3.ongrid.1": 324,
-  "metal4.ongrid.1": 24,
-  "via2.ongrid.1": 324,
-  "via2.width.1": 81,
-  "via3.ongrid.1": 324,
-  "via3.width.1": 81
- },
+ "rule_counts": {},
  "schema_version": 3,
- "source_cell_rollup": [
-  {
-   "count": 324,
-   "rule": "metal3.ongrid.1",
-   "source_cell": "VIA_via2_3_8960_1800_1_1_256_256",
-   "waived_count": 0
-  },
-  {
-   "count": 324,
-   "rule": "via2.ongrid.1",
-   "source_cell": "VIA_via2_3_8960_1800_1_1_256_256",
-   "waived_count": 0
-  },
-  {
-   "count": 324,
-   "rule": "via3.ongrid.1",
-   "source_cell": "VIA_via2_3_8960_1800_1_1_256_256",
-   "waived_count": 0
-  },
-  {
-   "count": 4,
-   "rule": "comp.tap_distance.nwell.mv.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1",
-   "waived_count": 0
-  },
-  {
-   "count": 3,
-   "rule": "comp.tap_distance.psub.mv.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1",
-   "waived_count": 0
-  },
-  {
-   "count": 4,
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1",
-   "waived_count": 0
-  },
-  {
-   "count": 2,
-   "rule": "metal4.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_16",
-   "waived_count": 0
-  },
-  {
-   "count": 117,
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_32",
-   "waived_count": 0
-  },
-  {
-   "count": 4,
-   "rule": "metal4.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_32",
-   "waived_count": 0
-  },
-  {
-   "count": 191,
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "waived_count": 0
-  },
-  {
-   "count": 6,
-   "rule": "metal4.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "waived_count": 0
-  },
-  {
-   "count": 12,
-   "rule": "metal2.ongrid.1",
-   "source_cell": null,
-   "waived_count": 0
-  },
-  {
-   "count": 12,
-   "rule": "metal4.ongrid.1",
-   "source_cell": null,
-   "waived_count": 0
-  },
-  {
-   "count": 81,
-   "rule": "via2.width.1",
-   "source_cell": null,
-   "waived_count": 0
-  },
-  {
-   "count": 81,
-   "rule": "via3.width.1",
-   "source_cell": null,
-   "waived_count": 0
-  }
- ],
- "status": "violations",
- "violation_count": 1489,
- "violations": [
-  {
-   "bbox": {
-    "bottom": 35970,
-    "left": 125840,
-    "right": 130640,
-    "top": 38730
-   },
-   "cell": "smoke_reg",
-   "check": "tap_distance",
-   "description": "Max distance of an Nwell tap (NCOMP inside Nwell) from PCOMP inside Nwell: 15um (5V/6V)",
-   "layer": "Comp",
-   "note": "tap_distance is context-dependent (tap-cell placement): a standalone standard cell carries no tap, so this may be expected there and is not necessarily a cell defect; evaluate it on the placed design",
-   "rule": "comp.tap_distance.nwell.mv.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 36170,
-    "left": 131800,
-    "right": 142720,
-    "top": 38170
-   },
-   "cell": "smoke_reg",
-   "check": "tap_distance",
-   "description": "Max distance of an Nwell tap (NCOMP inside Nwell) from PCOMP inside Nwell: 15um (5V/6V)",
-   "layer": "Comp",
-   "note": "tap_distance is context-dependent (tap-cell placement): a standalone standard cell carries no tap, so this may be expected there and is not necessarily a cell defect; evaluate it on the placed design",
-   "rule": "comp.tap_distance.nwell.mv.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 36540,
-    "left": 143440,
-    "right": 157280,
-    "top": 39320
-   },
-   "cell": "smoke_reg",
-   "check": "tap_distance",
-   "description": "Max distance of an Nwell tap (NCOMP inside Nwell) from PCOMP inside Nwell: 15um (5V/6V)",
-   "layer": "Comp",
-   "note": "tap_distance is context-dependent (tap-cell placement): a standalone standard cell carries no tap, so this may be expected there and is not necessarily a cell defect; evaluate it on the placed design",
-   "rule": "comp.tap_distance.nwell.mv.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 35970,
-    "left": 158000,
-    "right": 160760,
-    "top": 39630
-   },
-   "cell": "smoke_reg",
-   "check": "tap_distance",
-   "description": "Max distance of an Nwell tap (NCOMP inside Nwell) from PCOMP inside Nwell: 15um (5V/6V)",
-   "layer": "Comp",
-   "note": "tap_distance is context-dependent (tap-cell placement): a standalone standard cell carries no tap, so this may be expected there and is not necessarily a cell defect; evaluate it on the placed design",
-   "rule": "comp.tap_distance.nwell.mv.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 31990,
-    "left": 125840,
-    "right": 131040,
-    "top": 33570
-   },
-   "cell": "smoke_reg",
-   "check": "tap_distance",
-   "description": "Max distance of a substrate tap (PCOMP outside Nwell) from NCOMP outside Nwell: 15um (5V/6V)",
-   "layer": "Comp",
-   "note": "tap_distance is context-dependent (tap-cell placement): a standalone standard cell carries no tap, so this may be expected there and is not necessarily a cell defect; evaluate it on the placed design",
-   "rule": "comp.tap_distance.psub.mv.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 31940,
-    "left": 131760,
-    "right": 157240,
-    "top": 33520
-   },
-   "cell": "smoke_reg",
-   "check": "tap_distance",
-   "description": "Max distance of a substrate tap (PCOMP outside Nwell) from NCOMP outside Nwell: 15um (5V/6V)",
-   "layer": "Comp",
-   "note": "tap_distance is context-dependent (tap-cell placement): a standalone standard cell carries no tap, so this may be expected there and is not necessarily a cell defect; evaluate it on the placed design",
-   "rule": "comp.tap_distance.psub.mv.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 30930,
-    "left": 157960,
-    "right": 160920,
-    "top": 33570
-   },
-   "cell": "smoke_reg",
-   "check": "tap_distance",
-   "description": "Max distance of a substrate tap (PCOMP outside Nwell) from NCOMP outside Nwell: 15um (5V/6V)",
-   "layer": "Comp",
-   "note": "tap_distance is context-dependent (tap-cell placement): a standalone standard cell carries no tap, so this may be expected there and is not necessarily a cell defect; evaluate it on the placed design",
-   "rule": "comp.tap_distance.psub.mv.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 8932,
-    "left": 51400,
-    "right": 51400,
-    "top": 8932
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": null,
-   "source_path": null
-  },
-  {
-   "bbox": {
-    "bottom": 11228,
-    "left": 51400,
-    "right": 51400,
-    "top": 11228
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 29092,
-    "left": 51400,
-    "right": 51400,
-    "top": 29092
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 31388,
-    "left": 51400,
-    "right": 51400,
-    "top": 31388
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 49252,
-    "left": 51400,
-    "right": 51400,
-    "top": 49252
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 51548,
-    "left": 51400,
-    "right": 51400,
-    "top": 51548
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 69412,
-    "left": 51400,
-    "right": 51400,
-    "top": 69412
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 71708,
-    "left": 51400,
-    "right": 51400,
-    "top": 71708
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 89572,
-    "left": 51400,
-    "right": 51400,
-    "top": 89572
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 91868,
-    "left": 51400,
-    "right": 51400,
-    "top": 91868
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 109732,
-    "left": 51400,
-    "right": 51400,
-    "top": 109732
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 112028,
-    "left": 51400,
-    "right": 51400,
-    "top": 112028
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 129892,
-    "left": 51400,
-    "right": 51400,
-    "top": 129892
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 132188,
-    "left": 51400,
-    "right": 51400,
-    "top": 132188
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 150052,
-    "left": 51400,
-    "right": 51400,
-    "top": 150052
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 152348,
-    "left": 51400,
-    "right": 51400,
-    "top": 152348
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 170212,
-    "left": 51400,
-    "right": 51400,
-    "top": 170212
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  },
-  {
-   "bbox": {
-    "bottom": 172508,
-    "left": 51400,
-    "right": 51400,
-    "top": 172508
-   },
-   "cell": "smoke_reg",
-   "check": "ongrid",
-   "description": "metal2 vertices must be on the 0.005um manufacturing grid",
-   "layer": "Metal2",
-   "rule": "metal2.ongrid.1",
-   "source_cell": "gf180mcu_fd_sc_mcu9t5v0__fill_64",
-   "source_path": [
-    "gf180mcu_fd_sc_mcu9t5v0__fill_64"
-   ]
-  }
- ],
- "violations_listed": 25
+ "status": "clean",
+ "violation_count": 0,
+ "violations": [],
+ "violations_listed": 0
 }
