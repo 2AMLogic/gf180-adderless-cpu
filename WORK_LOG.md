@@ -8,6 +8,11 @@ Entries are grouped by date, newest first. Each entry references the merged PR o
 
 ## Archives
 
+### 2026-11-24
+
+- **Issue #23** (closed): flow smoke: DRC gate unmet on smoke_reg (PDN via stacks and tapcell pitch fail klt drc's gf180mcu deck; waits on klayout-tools#7311)
+- **PR #32**: fix: clear smoke DRC with standard PDN vias and 10 µm tap spacing
+
 ### 2026-11-23
 
 - **Issue #25** (closed): flow smoke: an `unchecked` klt lvs power verdict is recorded FAIL, not BLOCKED
