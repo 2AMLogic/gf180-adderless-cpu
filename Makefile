@@ -21,11 +21,12 @@ smoke: $(FV_VENV)/bin/klt
 smoke-control: $(FV_VENV)/bin/klt
 	python3 tools/smoke.py --venv $(FV_VENV) --control
 
-# Harness regression tests (issue #11): the committed evidence writers
-# only overwrite a record with a valid one.  Runs in a throwaway tree
-# copy against a fake venv; no simulator, cocotb or network needed.
+# Harness regression tests (issues #7 and #11): the smoke runner's
+# exit-code contract, and its evidence-write guards (a record is only
+# overwritten with a valid one).  Hermetic: fake venvs and a throwaway
+# tree copy; no simulator, cocotb or network needed.
 harness-tests:
-	python3 verification/test_smoke_control.py
+	python3 -I tools/test_smoke_exits.py
 
 # Implementation-flow smoke (issue #18): synthesis, place-and-route, DRC,
 # gate-level LVS and the supply ERC read on rtl/smoke_reg.v, from the
