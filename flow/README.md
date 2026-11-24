@@ -38,8 +38,18 @@ PDK's default PDN strap geometry in its `power` block (`power_net`/
 `ground_net` plus `straps[]`, layers listed bottom-to-top) — gate 1
 above. Fill in the `<!-- FILL: ... -->` markers (netlist path, top-level
 module, floorplan utilization, IO layers, clock constraints) once synthesis
-is wired up; the `power` block itself needs no per-block edits. Gates 2
-and 3 still need their own requests — a `klt lvs` request with
+is wired up; the `straps[]` geometry needs no per-block edits — gate 1
+holds as shipped — but the `connects` tuning (`ongrid`, `split_cuts`)
+and the default 100 µm tap pitch (the starter carries no
+`power.tapcell` entry) are not DRC-clean under `klt drc --deck gf180mcu`
+as shipped: that exact configuration is what `evidence/drc.json`
+recorded at `bc49d80` — `status: "violations"`, 1489 hits across nine
+rules — before the smoke's clean rerun superseded that record. The clean
+settings (`ongrid` and `split_cuts` dropped,
+`power.tapcell.distance_um: 10`) are the smoke's, per the #23 ruling;
+see the `request-par-smoke.json` paragraph below — changing the starter
+to match is a decision about the real block's PDN, not a doc fix.
+Gates 2 and 3 still need their own requests — a `klt lvs` request with
 `reference.form: "gate-level-verilog"` and `options.power_connectivity`,
 and a `klt erc` supply spec — once there is a routed layout to check.
 
