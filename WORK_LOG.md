@@ -10,6 +10,8 @@ Entries are grouped by date, newest first. Each entry references the merged PR o
 
 ### 2026-11-24
 
+- **PR #39**: test: consolidate smoke write-guard suite into tools/test_smoke_exits.py
+- **Issue #38** (closed): Remove verification/test_smoke_control.py: consolidate duplicate fake-venv smoke tests into tools/test_smoke_exits.py
 - **Issue #34** (closed): flow/README.md still tells the real block its starter `power` block needs no per-block edits
 - **PR #36**: docs: qualify flow README claim that starter power block needs no edits
 - **Issue #23** (closed): flow smoke: DRC gate unmet on smoke_reg (PDN via stacks and tapcell pitch fail klt drc's gf180mcu deck; waits on klayout-tools#7311)
