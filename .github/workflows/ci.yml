@@ -18,9 +18,10 @@ jobs:
         with:
           python-version: "3.12"
       - uses: astral-sh/setup-uv@v7
-      # Hermetic exit-code contract tests: no simulator, venv or cache
-      # needed, so they run first and fail before the iverilog build.
-      - name: Exit-code contract tests (fast lane)
+      # Hermetic exit-code contract and evidence-write-guard tests for
+      # tools/smoke.py: no simulator, venv or cache needed, so they run
+      # first and fail before the iverilog build.
+      - name: Smoke exit-code and write-guard tests (fast lane)
         run: python3 -I tools/test_smoke_exits.py
       # Same hermetic shape for the implementation-flow runner (issue #18):
       # a fake klt, no engine, PDK or network.  The live `make flow-smoke`
@@ -28,8 +29,6 @@ jobs:
       # does not provision -- flow/README.md says where it runs and why.
       - name: Flow exit-code contract tests (fast lane)
         run: python3 -I tools/test_flow_exits.py
-      - name: Harness regression tests (evidence-write guards)
-        run: make harness-tests
       - name: Pin-consistency check (fast lane)
         run: python3 tools/check_pins.py
       # The committed evidence records the simulator it was produced with,
