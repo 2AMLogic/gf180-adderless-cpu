@@ -7,7 +7,7 @@ The body below is a snapshot of GitHub label state as of the last merged docs-ma
 <!-- Maintained automatically by the Guide triage agent. Manual edits are fine but may be overwritten. -->
 
 <!-- guide:plan-body:start -->
-_Generated: 2026-11-24T06:56:13Z (snapshot; compare against live labels)_
+_Generated: 2026-11-24T11:43:07Z (snapshot; compare against live labels)_
 ## Operator Attention: Merge-Risk-Hold Pileup
 
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
@@ -37,6 +37,7 @@ _None._
 Issues currently being built (`loom:building`).
 
 - **#1**: Draft and ratify the target spec
+- **#38**: Remove verification/test_smoke_control.py: consolidate duplicate fake-venv smoke tests into tools/test_smoke_exits.py
 
 ## PRs Awaiting Review
 
@@ -48,7 +49,7 @@ PRs waiting on Judge (`loom:review-requested`).
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-_None._
+- **#39**: test: consolidate smoke write-guard suite into tools/test_smoke_exits.py — closes #38
 
 ## Proposed
 
@@ -72,9 +73,9 @@ _None._
 | Very important | 0 |
 | Important | 0 |
 | Ready (`loom:issue`, net of holds/building/merge-pending) | 0 |
-| In Progress (`loom:building`) | 1 |
+| In Progress (`loom:building`) | 2 |
 | PRs awaiting review | 1 |
-| Approved PRs awaiting merge | 0 |
+| Approved PRs awaiting merge | 1 |
 | Curated | 1 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 0 |
