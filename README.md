@@ -48,20 +48,24 @@ result. Where the agents hit friction with the open-source tooling — most ofte
 filed as a public issue against the tool itself, so the fix benefits everyone
 using gf180mcu, not just this repo.
 
-## Target specification (DRAFT — engineering to ratify, see issue #1)
+## Target specification
 
-| Parameter | Target | Stretch |
-|---|---|---|
-| Data width | 8 bits |  |
-| Program address | 11 bits (2 KB of program) | 12 bits |
-| Registers | 16 general registers plus an accumulator |  |
-| Arithmetic | increment, decrement, compare, shift, logic; no add or subtract instruction |  |
-| I/O | 8 output strobes, 8 input selects, one 8-bit data bus |  |
-| Interrupt | one level, vectored |  |
-| Supply | 5 V | 3.3 V and 5 V |
-| Clock | ≥ 10 MHz at 5 V | ≥ 25 MHz |
-| Tooling | assembler and instruction-level simulator in this repo, agreeing with the RTL on every test program |  |
-| AREA | ≤ 0.05 mm² core | ≤ 0.03 mm² |
+Every value is carried by a decision record under [spec/](spec/) — see
+[spec/target-table.md](spec/target-table.md) for the full table with the
+verification method per row.
+
+| Parameter | Target | Fallback | Stretch |
+|---|---|---|---|
+| Data width | 8 bits | — | — |
+| Program address | 11 bits (2 KB of program) | 10 bits (1 KB) | 12 bits (4 KB) |
+| Registers | 7 general registers plus an accumulator (eight 3-bit-addressable register slots); 8-entry return stack | — | 16 registers via a banked extension (future decision record) |
+| Arithmetic | increment, decrement, compare, shift, logic; no add or subtract instruction, and no carry-propagate adder in the netlist | compare restricted to equality | — |
+| I/O | 8 output strobes, 8 input selects, one 8-bit data bus | 4 strobes, 4 selects | — |
+| Interrupt | one level, vectored; entry ≤ 8 cycles, return ≤ 4 cycles | fixed vector, entry ≤ 12 cycles | entry ≤ 4 cycles, return ≤ 2 cycles |
+| Supply | 5 V on `gf180mcu_fd_sc_mcu7t5v0` | — | analysis-only closure at the library's 3.30 V corners |
+| Clock | ≥ 10 MHz at 5 V | ≥ 6 MHz | ≥ 25 MHz |
+| Tooling | assembler and cycle-accurate simulator in this repo, agreeing with the RTL on every test program | instruction-accurate agreement | — |
+| AREA | ≤ 0.05 mm² core | ≤ 0.08 mm² | ≤ 0.03 mm² |
 
 ## Repo layout
 
